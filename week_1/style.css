@@ -1,0 +1,122 @@
+/* reference: 
+ * 
+ */
+/* 1200px <screen-width <=1920px*/
+body{
+    font-size: 20px;
+}
+.menu{
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+.menu_headline{
+    font-weight: bold;
+    text-align: left;
+    flex: none;
+    width: 200px;
+}
+.desktop_menu{
+    display: flex;
+    justify-content: flex-end;
+    flex: auto;
+}
+.menu_text{
+    margin-left: 10px;
+}
+.mobile_menu{
+    display: none;
+    justify-content: flex-end;
+    flex: auto;
+}
+.headline{
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    margin-bottom: 20px;
+    background-color: #DDEEF8;
+}
+.list{
+    margin: auto;
+    width: 1200px;
+}
+.top{
+    display: flex;
+    flex-wrap: wrap;
+}
+.top_container{
+    margin: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #DDEEF8;
+    flex:1 1 calc(33.33% - 20px);
+}
+.top_container2{
+    margin: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #DDEEF8;
+    flex-basis: calc(33.33% - 20px);
+}
+.top_text{
+    margin-left: 10px;
+}
+.top_photo{
+    height:50px;
+    width:80px;
+}
+.down{
+    display: flex;
+    flex-wrap: wrap;
+}
+.photo{
+    width: 100%;
+}
+.container{
+    margin: 10px;
+    background-color: #DDEEF8;
+    width: calc(16.66% - 20px);
+}
+.content{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* 600px <screen-width <=1200px*/
+@media (max-width: 1200px){
+    .list{
+        margin: auto;
+        width: 90%;
+    }
+    .top_container{
+        flex-basis: calc(50% - 20px);
+    }
+    .container{
+        flex-basis: calc(25% - 20px);
+    }
+}
+/* 360px <screen-width <=600px*/
+@media (max-width: 600px){
+    .desktop_menu{
+        display: none;
+    }
+    .mobile_menu{
+        display: flex;
+    }
+    .list{
+        margin: auto;
+        width: 90%;
+    }
+    .top_container{
+        flex-basis: calc(100% - 20px);
+    }
+    .container{
+        flex-basis: calc(100% - 20px);
+    }
+}
