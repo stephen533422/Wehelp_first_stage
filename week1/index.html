@@ -45,51 +45,75 @@
             </div>
             <div class="down">
                 <div class="container">
-                    <img class="photo" src="photo.jpg"/>
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 1</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                </div>
                     <div class="content">Title 2</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 3</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 4</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 5</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 6</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 7</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 8</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 9</div>
                 </div>                
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 10</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 11</div>
                 </div>
                 <div class="container">
-                    <img class="photo" src="photo.jpg" />
+                    <div class="photo">
+                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                    </div>
                     <div class="content">Title 12</div>
                 </div>
             </div>
@@ -98,6 +122,11 @@
             function menu(){
                 document.getElementById('mobile_menu').classList.toggle('is-active');
                 document.getElementById('side_bar').classList.toggle('is-active');
+            }
+            function startag(elem){
+                elem.classList.toggle('is-active');
+                if(elem.className=="star") elem.innerHTML="☆";
+                if(elem.className=="star is-active") elem.innerHTML="★";
             }
         </script>
     </body>
