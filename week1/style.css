@@ -44,10 +44,12 @@ body{
 .side_bar{
     display: none;
     width: 240px;
-    height: 100vh;
+    height: 100%;
     background-color: white;
-    position: absolute;
+    position: fixed;
     right: -240px;
+    bottom: 0;
+    z-index: 100;
     transition: 0.3s;
 }
 .is-active.side_bar{
