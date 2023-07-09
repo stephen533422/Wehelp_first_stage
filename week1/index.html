@@ -15,11 +15,12 @@
                 <div class="menu_text">Item3</div>
                 <div class="menu_text">Item4</div>
             </div>
-            <div class="mobile_menu" id="mobile_menu" onclick="menu();">
+            <label for="menu_checkbox" class="mobile_menu" id="mobile_menu" onclick="ClickMenu();">
                 <img src="menu.png" width="30px" height="30" />
-            </div>
+            </label>
+            <input type="checkbox" class="menu_checkbox" id='menu_checkbox'>
         </div>
-        <div class="side_bar" id="side_bar">
+        <div class="side_bar" id="side_bar" tabindex="0">
             <div class="menu_list">
                 <div class="menu_text">Item 1</div>
                 <div class="menu_text">Item 2</div>
@@ -46,88 +47,93 @@
             <div class="down">
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 1</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                 </div>
                     <div class="content">Title 2</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 3</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 4</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 5</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 6</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 7</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 8</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 9</div>
                 </div>                
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 10</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 11</div>
                 </div>
                 <div class="container">
                     <div class="photo">
-                        <div class="star" id="star_tag" onclick="startag(this);">☆</div>
+                        <div class="star" id="star_tag" onclick="ClickStar(this);">☆</div>
                     </div>
                     <div class="content">Title 12</div>
                 </div>
             </div>
         </div>
         <script>
-            function menu(){
+            function ClickMenu(){
                 document.getElementById('mobile_menu').classList.toggle('is-active');
                 document.getElementById('side_bar').classList.toggle('is-active');
+                side_bar.focus();
             }
-            function startag(elem){
+            function ClickStar(elem){
                 elem.classList.toggle('is-active');
                 if(elem.className=="star") elem.innerHTML="☆";
                 if(elem.className=="star is-active") elem.innerHTML="★";
             }
+            var side_bar = document.getElementById("side_bar");
+            side_bar.addEventListener("blur", function() {
+                ClickMenu();
+            })
         </script>
     </body>
 </html>

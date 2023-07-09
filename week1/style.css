@@ -26,6 +26,13 @@ body{
 .menu_text{
     margin-left: 10px;
 }
+.menu_checkbox{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+    position: absolute;
+    right: 0px;
+}
 .mobile_menu{
     background-color: white;
     display: none;
@@ -37,9 +44,6 @@ body{
 }
 .mobile_menu:hover{
     transform: scale(150%);
-}
-.is-active.mobile_menu{
-    right: 240px;
 }
 .side_bar{
     display: none;
