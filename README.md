@@ -1,6 +1,6 @@
 # Wehelp_first_stage
 ## RWD website實作:
-https://github.com/stephen533422/wehelp_first_stage/tree/main/week1
+[https://github.com/stephen533422/wehelp_first_stage/tree/main/week1](https://stephen533422.github.io/wehelp_first_stage/week1/)
 * * *
 ### 7/8更新額外功能:  
 *  手機的版面點擊漢堡圖示，可以打開浮動的選單；再次點擊，選單關閉。  
