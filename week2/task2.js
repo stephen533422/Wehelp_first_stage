@@ -4,20 +4,39 @@ function calculateSumOfBonus(data){
     //console.log(data["employees"]);
     let sum=0;
     for(const i in data["employees"]){
-        for(const key in data["employees"][i]){
-            if(key === "salary"){
-                if(typeof(data["employees"][i][key])!="number"){
-                    var new_value=data["employees"][i][key].replace(",","");
-                    new_value=new_value.replace("USD","");
-                    new_value=parseInt(new_value,10);
-                }
-                else{
-                    new_value=data["employees"][i][key];
-                }
-                sum=sum+new_value;
+        let salary = data["employees"][i]["salary"];
+        rate = 1;
+        if(typeof(salary) != "number"){
+            var salary_TWD = salary.replace(",","");
+            if(salary_TWD.includes("USD")){
+                salary_TWD = salary_TWD.replace("USD","");
+                rate = 30;
             }
+            salary_TWD = parseInt(salary_TWD,10) * rate;
         }
-    }
+        else{
+            var salary_TWD = salary;
+        }
+        if(data["employees"][i]["role"] == "Engineer"){
+            bonus = 0.04
+        }
+        else if(data["employees"][i]["role"] == "CEO"){
+            bonus = 0.1
+        }
+        else if(data["employees"][i]["role"] == "Sales"){
+            bonus = 0.05
+        }
+        if(data["employees"][i]["performance"] == "above average"){
+            bonus *= 1.2
+        }
+        else if(data["employees"][i]["performance"] == "average"){
+            bonus *= 1
+        }
+        else if(data["employees"][i]["performance"] == "below average"){
+            bonus *= 0.8
+        }
+        sum = salary_TWD *bonus +sum;
+        }
     console.log(sum);
 }
 calculateSumOfBonus({

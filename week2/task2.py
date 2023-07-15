@@ -4,15 +4,30 @@ def calculate_sum_of_bonus(data):
     # data["employees"][0] is <dict>
     sum = 0
     for i in range(len(data["employees"])):
-        for key,value in data["employees"][i].items():
-            if key == "salary":
-                if type(value) != int: 
-                    new_value = value.replace(",","")
-                    new_value = new_value.strip("USD")
-                    new_value=int(new_value)
-                else: new_value = value
-                sum += new_value
-    print(sum)
+        salary = data["employees"][i]["salary"]
+        rate = 1
+        if type(salary) != int: 
+            salary_TWD = salary.replace(",","")
+            if "USD" in salary_TWD:
+                salary_TWD = salary_TWD.strip("USD")
+                rate = 30
+            salary_TWD=int(salary_TWD) * rate
+        else:
+            salary_TWD = salary
+        if data["employees"][i]["role"] == "Engineer":
+            bonus = 0.04
+        elif data["employees"][i]["role"] == "CEO":
+            bonus = 0.1
+        elif data["employees"][i]["role"] == "Sales":
+            bonus = 0.05
+        if data["employees"][i]["performance"] == "above average":
+            bonus *= 1.2
+        elif data["employees"][i]["performance"] == "average":
+            bonus *= 1
+        elif data["employees"][i]["performance"] == "below average":
+            bonus *= 0.8
+        sum = salary_TWD * bonus + sum
+    print(int(sum))
 calculate_sum_of_bonus({
 "employees":[
 {
