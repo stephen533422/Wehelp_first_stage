@@ -20,7 +20,8 @@ with open("attraction.csv", mode="w", newline="") as file:
     writer=csv.writer(file)
     for item in items:
         if item["address"][5:8] in district:
-            writer.writerow([item["stitle"],item["address"][5:8],item["longitude"],item["latitude"],item["file"]])
+            fileurl=item["file"].split("https://")
+            writer.writerow([item["stitle"],item["address"][5:8],item["longitude"],item["latitude"],fileurl[1]])
 
 with open("MRT.csv", mode="w", newline="")as file:
     writer = csv.writer(file)
@@ -41,3 +42,10 @@ with open("MRT.csv", mode="w", newline="")as file:
         for j in mrt_list[i]:
             write_list.append(j)
         writer.writerow(write_list)
+
+            
+
+         
+
+             
+
