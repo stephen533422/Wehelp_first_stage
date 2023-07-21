@@ -9,9 +9,10 @@ with req.urlopen(request) as response:
 root=bs4.BeautifulSoup(data, "html.parser")
 pages=root.find("a", class_="btn wide disabled").previous_sibling.previous_sibling
 page=pages.get("href").split(".")[0]
-page_number=int(page.split("index")[1])
+page_number=int(page.split("index")[1])+1
+num = 3
 with open("movie.txt", "w", newline="") as file:
-    for index in range(page_number+1, page_number-2, -1):
+    for index in range(page_number, page_number-num, -1):
         url="https://www.ptt.cc/bbs/movie/index"+str(index)+".html"
         # print(index)
         request=req.Request(url, headers={
@@ -43,10 +44,8 @@ with open("movie.txt", "w", newline="") as file:
                 for item in items:
                     # print(time)
                     if item.span.string=="時間":
-                        times=item.span.find_next_siblings("span", class_="article-meta-value")
-                        for i in times:
-                            time=i.get_text()
-                            file.write(time+"\n")
-                            # print(time)
+                        # print(item.span.next_sibling.get_text())
+                        time=item.span.next_sibling.get_text()
+                        file.write(time+"\n")
 
 
