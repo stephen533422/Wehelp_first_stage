@@ -13,7 +13,7 @@ page_number=int(page.split("index")[1])
 with open("movie.txt", "w", newline="") as file:
     for index in range(page_number+1, page_number-2, -1):
         url="https://www.ptt.cc/bbs/movie/index"+str(index)+".html"
-        print(index)
+        # print(index)
         request=req.Request(url, headers={
             "User-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
         })
