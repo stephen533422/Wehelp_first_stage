@@ -19,8 +19,8 @@ function createTopData(start, data){
 }
 function createDownData(start,data){
     let end=start+12;
-    if(end>58){
-        end=58;
+    if(end>data.length){
+        end=data.length;
     }
     for(i=start; i<end; i++){
         //console.log( i, data[i]["stitle"], data[i]["file"].split("https://")[1]);
@@ -44,7 +44,8 @@ function createDownData(start,data){
 }
 function loadMore(n, data){
     createDownData( n, data)
-    return n+12;
+    if(n+12<data.length) return n+12;
+    else return data.length;
 }
 fetch('https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json')
 .then((response) => {
@@ -57,13 +58,12 @@ fetch('https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assi
     var n = 15;
     let button = document.getElementById("button");
     button.addEventListener("click", function(e){
-        if(n<57){
+        if(n<data.length){
             n=loadMore(n ,data);
         }
         else{
             alert('沒有資料了');
         }
-        console.log(n);
     })
 })
 .catch((error) => {
