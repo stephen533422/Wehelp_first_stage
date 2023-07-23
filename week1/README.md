@@ -1,4 +1,4 @@
-# Wehelp_first_stage
+# Week 1
 ## RWD website實作:
 【[website](https://stephen533422.github.io/wehelp_first_stage/week1/)】
 * * *
@@ -13,6 +13,13 @@
 ## 用到的知識點
 ### HTML
 *  以link方式插入CSS sheet
+*  <div>
+*  <img>
+*  <label>
+*  <input>
+*  document.getElementById("")
+*  .classList.toggle("")
+*  .innerHTML
 ### CSS
 *  font-size
 *  font-weight
