@@ -10,3 +10,31 @@
 ### 7/9更新額外功能:  
 *  漢堡圖不再因為開啟選單而移動，點擊選單以外的地方可以關閉選單。  
 * * *
+## 用到的知識點
+### HTML
+*  以link方式插入CSS sheet
+### CSS
+*  font-size
+*  font-weight
+*  height
+*  weight
+*  margin
+*  padding
+*  display: flex/ grid/ none/ block
+*  flex: flex-grow||flex-shrin||flex-basis
+*  flex-basis: calc(33.33% - 20px)
+*  flex-wrap
+*  position: absolute/ fixed
+*  z-index
+*  transition
+*  text-align
+*  align-items
+*  align-content
+*  justify-content
+*  place-content
+*  background-image
+*  background-position
+*  background-size
+*  background-repeat
+*  backdrop-filter: opacity(85%);
+*  @media (max-width: ){} 
