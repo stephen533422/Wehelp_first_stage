@@ -13,10 +13,10 @@
 ## 用到的知識點
 ### HTML
 *  以link方式插入CSS sheet
-*  <div>
-*  <img>
-*  <label>
-*  <input>
+*  div
+*  img
+*  label
+*  input
 *  document.getElementById("")
 *  .classList.toggle("")
 *  .innerHTML
