@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% block title %}
-{% if message == "invalid" %}
+{% if page == "error" %}
 登入失敗
-{% elif message == "empty" %}
-登入失敗
-{% elif message == "member" %}
+{% elif page == "member" %}
 成功登入
-{% elif message == "square"%}
+{% elif page == "square"%}
 正整數平方計算結果
 {% endif %}
 {% endblock title %}
@@ -14,13 +12,11 @@
 {% block body %}
         <div class="container">
             <div class="welcome">
-                {% if message == "invalid" %}
+                {% if page == "error" %}
                 失敗頁面
-                {% elif message == "empty" %}
-                失敗頁面
-                {% elif message == "member" %}
+                {% elif page == "member" %}
                 歡迎光臨，這是會員頁
-                {% elif message == "square"%}
+                {% elif page == "square"%}
                 正整數平方計算結果
                 {% endif %}
             </div>
@@ -29,10 +25,10 @@
                     <div class="text">帳號、或密碼輸入錯誤</div>
                     {% elif message == "empty" %}
                     <div class="text">請輸入帳號、密碼</div>
-                    {% elif message == "member" %}
+                    {% elif page == "member" %}
                     <div class="text">恭喜您，成功登入系統</div>
                     <a href="\signout">登出系統</a>
-                    {% elif message == "square"%}
+                    {% elif page == "square"%}
                     <div class="text">{{ answer }}</div>
                     {% endif %}
                 </div>
