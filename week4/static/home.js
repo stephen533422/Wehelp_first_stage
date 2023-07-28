@@ -8,3 +8,12 @@ function checkForm(){
         return true;
     }
 }
+function squareCal(){
+    let num = document.getElementById("square_num").value;
+    if(parseInt(num)>0){
+        location.href = "/square/" + num;
+    }
+    else{
+        alert("Please enter a positive number");
+    }
+}
