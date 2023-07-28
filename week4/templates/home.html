@@ -1,44 +1,38 @@
-<!DOCTYPE html>
-<html>
-    <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta charset="UTF-8">
-            <title>登入系統</title>
-            <link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}">
-    </head>
-    <body>
-        <div class="container">
-            <div class="welcome">歡迎光臨，請輸入帳號密碼</div>
-            <form class="form" action="signin" method='POST' onsubmit="return checkForm();">
-                <div class="login_title">登入系統</div>
-                <div class="username">
-                    <div class="text">帳號</div>
-                    <input type="text" name="email" id="email"/>
-                </div>
-                <div class="password">
-                    <div class="text">密碼</div>
-                    <input type="password" name="password" id="password"/>
-                </div>
-                <div class="agreement">
-                    同意條款<input type="checkbox" id="agree_checkbox" name="checkbox"/>
-                </div>
-                <div class="login_btn">
-                    <input type="submit" id="login_btn" value="登入" name="submit"/>
-                </div>
-            </form>
-            <div class="container2">
-                <form class="form2" method="POST">
-                    <div class="login_title">計算正整數的平方</div>
-                    <div class="square_cal">
-                        <div class="text">正整數</div>
-                        <input type="text" name="square_num" id="square_num" />
-                    </div>
-                    <div class="cal_btn">
-                        <input type="button" id="cal_btn" value="計算" name="cal_btn" onclick="squareCal()" />
-                    </div>
-                </form>
-            </div>
+{% extends "base.html" %}
+{% block title %}登入系統{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{{ url_for("static",filename="home.css") }}">{% endblock css %}            
+{% block body %} 
+<div class="container">
+    <div class="welcome">歡迎光臨，請輸入帳號密碼</div>
+    <form class="form" action="signin" method='POST' onsubmit="return checkForm();">
+        <div class="login_title">登入系統</div>
+        <div class="username">
+            <div class="text">帳號</div>
+            <input type="text" name="email" id="email"/>
         </div>
-        <script src="{{ url_for('static',filename='home.js') }}"></script>
-    </body>
-</html>
+        <div class="password">
+            <div class="text">密碼</div>
+            <input type="password" name="password" id="password"/>
+        </div>
+        <div class="agreement">
+            同意條款<input type="checkbox" id="agree_checkbox" name="checkbox"/>
+        </div>
+        <div class="login_btn">
+            <input type="submit" id="login_btn" value="登入" name="submit"/>
+        </div>
+    </form>
+    <div class="container2">
+        <form class="form2" method="POST">
+            <div class="login_title">計算正整數的平方</div>
+            <div class="square_cal">
+                <div class="text">正整數</div>
+                <input type="text" name="square_num" id="square_num" />
+            </div>
+            <div class="cal_btn">
+                <input type="button" id="cal_btn" value="計算" name="cal_btn" onclick="squareCal()" />
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{{ url_for('static',filename='home.js') }}"></script>
+{% endblock body %}

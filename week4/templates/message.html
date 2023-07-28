@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+{% if message == "invalid" %}
+登入失敗
+{% elif message == "empty" %}
+登入失敗
+{% elif message == "member" %}
+成功登入
+{% elif message == "square"%}
+正整數平方計算結果
+{% endif %}
+{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static',filename='message.css') }}">{% endblock css %}
+{% block body %}
+        <div class="container">
+            <div class="welcome">
+                {% if message == "invalid" %}
+                失敗頁面
+                {% elif message == "empty" %}
+                失敗頁面
+                {% elif message == "member" %}
+                歡迎光臨，這是會員頁
+                {% elif message == "square"%}
+                正整數平方計算結果
+                {% endif %}
+            </div>
+                <div class="message">
+                    {% if message == "invalid" %}
+                    <div class="text">帳號、或密碼輸入錯誤</div>
+                    {% elif message == "empty" %}
+                    <div class="text">請輸入帳號、密碼</div>
+                    {% elif message == "member" %}
+                    <div class="text">恭喜您，成功登入系統</div>
+                    <a href="\signout">登出系統</a>
+                    {% elif message == "square"%}
+                    <div class="text">{{ answer }}</div>
+                    {% endif %}
+                </div>
+        </div>
+{% endblock body %}
