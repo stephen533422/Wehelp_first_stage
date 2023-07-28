@@ -25,7 +25,7 @@ def login():
 def member():
     if flask.session["SIGNED-IN"] == False:
         return flask.redirect("/")
-    return flask.render_template( "member.html")
+    return flask.render_template( "message.html", message="member")
 
 @app.route("/signout", methods=["GET"])
 def signout():
@@ -35,13 +35,12 @@ def signout():
 @app.route("/error", methods=["GET"])
 def errorMessage():    
     message=flask.request.args.get("message")
-    return flask.render_template("error.html",message=message)
-
+    return flask.render_template("message.html", message=message)
 
 @app.route("/square/<number>")
 def squareNum(number):
     answer=int(number)*int(number)
-    return flask.render_template("square.html",answer=answer)
+    return flask.render_template("message.html", message="square", answer=answer)
 
 if __name__ == "__main__":
     # app.debug=True
