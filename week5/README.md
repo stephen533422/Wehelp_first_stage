@@ -21,7 +21,7 @@ SELECT * FROM member ORDER BY time DESC;
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task3-3.jpg)
 *  使⽤ SELECT 指令取得 member 資料表中第 2 到第 4 筆共三筆資料，並按照 time 欄位，由近到遠排序。
 ```sql
-SELECT * FROM (SELECT *,ROW_NUMBER() OVER (ORDER BY time DESC) AS row_id FROM member)sorted LIMIT 1,3;
+SELECT * FROM member ORDER BY time DESC LIMIT 1,3;
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task3-4.jpg)
 *  使⽤ SELECT 指令取得欄位 username 是 test 的會員資料。
