@@ -57,10 +57,6 @@ SELECT AVG(follower_count) FROM member;
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task4-3.jpg)
 ## Task 5:
 *  在資料庫中，建立新資料表紀錄留⾔資訊，取名字為 message。
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
 |  欄位名稱  |  資料型態  |  額外設定                                   |  用途說明      |
 |:---------|:-----------|:------------------------------------------|:-------------| 
 | id       |bigint      |主鍵、⾃動遞增                             |獨立編號      |
@@ -87,7 +83,3 @@ INNER JOIN message ON member.id = message.member_id WHERE username = "test";
 SELECT AVG(like_count) FROM member INNER JOIN message ON member.id = message.member_id WHERE username = "test";
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5-3.jpg)
-
-| 111 | 222 | 333 |
-| -------- | -------- | -------- |
-| 111 | 222| 333|
