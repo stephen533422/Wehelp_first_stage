@@ -58,12 +58,13 @@ SELECT AVG(follower_count) FROM member;
 ## Task 5:
 *  在資料庫中，建立新資料表紀錄留⾔資訊，取名字為 message。
 |欄位名稱  |資料型態    |額外設定                                   |用途說明      |
-|:----     |:----       |:----                                      |:----         | 
+|:---------|:-----------|:------------------------------------------|:-------------| 
 | id       |bigint      |主鍵、⾃動遞增                             |獨立編號      |
 |member_id |bigint      |不可為空值<br>外鍵對應 member 資料表中的 id|留⾔者會員編號|
 |content   |varchar(255)|不可為空值                                 |留⾔內容      |
 |like_count|int unsigned|不可為空值，預設為 0                       |按讚的數量    |
 |time      |datetime    |不可為空值，預設為當前時間                 |留⾔時間|
+
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5.jpg)
 *  使⽤ SELECT 搭配 JOIN 語法，取得所有留⾔，結果須包含留⾔者的姓名。
 ```sql
