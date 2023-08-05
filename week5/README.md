@@ -58,15 +58,15 @@ SELECT AVG(follower_count) FROM member;
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task4-3.jpg)
 ***
 ## Task 5:
-1. 在資料庫中，建立新資料表紀錄留⾔資訊，取名字為 message。
+1. 在資料庫中，建立新資料表紀錄留言資訊，取名字為 message。
 
-|  欄位名稱  |  資料型態  |  額外設定                                   |  用途說明      |
-|:---------|:-----------|:------------------------------------------|:-------------| 
-| id       |bigint      |主鍵、⾃動遞增                             |獨立編號      |
-|member_id |bigint      |不可為空值<br>外鍵對應 member 資料表中的 id|留⾔者會員編號|
-|content   |varchar(255)|不可為空值                                 |留⾔內容      |
-|like_count|int unsigned|不可為空值，預設為 0                       |按讚的數量    |
-|time      |datetime    |不可為空值，預設為當前時間                 |留⾔時間|
+|  欄位名稱  |  資料型態  |  額外設定                                 |  用途說明    |
+|:---------  |:-----------|:------------------------------------------|:-------------| 
+| id         |bigint      |主鍵、⾃動遞增                             |獨立編號      |
+|member_id   |bigint      |不可為空值<br>外鍵對應 member 資料表中的 id|留言者會員編號|
+|content     |varchar(255)|不可為空值                                 |留言內容      |
+|like_count  |int unsigned|不可為空值，預設為 0                       |按讚的數量    |
+|time        |datetime    |不可為空值，預設為當前時間                 |留言時間      |
 ```
 CREATE TABLE message (    
     id BIGINT primary key auto_increment,
@@ -89,19 +89,19 @@ VALUES (1,"hi",6),
        (3,"yo",6);
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5.jpg)
-*  使⽤ SELECT 搭配 JOIN 語法，取得所有留⾔，結果須包含留⾔者的姓名。
+*  使⽤ SELECT 搭配 JOIN 語法，取得所有留言，結果須包含留言者的姓名。
 ```sql
 SELECT member.name, message.content, message.like_count, message.time FROM member 
 INNER JOIN message ON member.id = message.member_id;
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5-1.jpg)
-*  使⽤ SELECT 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留⾔，資料中須包含留⾔者的姓名。
+*  使⽤ SELECT 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留言，資料中須包含留言者的姓名。
 ```sql
 SELECT member.name, message.content, message.like_count, message.time FROM member 
 INNER JOIN message ON member.id = message.member_id WHERE username = "test";
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5-2.jpg)
-*  使⽤ SELECT、SQL Aggregate Functions 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留⾔平均按讚數。
+*  使⽤ SELECT、SQL Aggregate Functions 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留言平均按讚數。
 ```sql
 SELECT AVG(like_count) FROM member INNER JOIN message ON member.id = message.member_id WHERE username = "test";
 ```
