@@ -1,11 +1,12 @@
 # Week 5
 ## pre-processing:
 *  透過終端機 Command Line 介⾯，連結到 MySQL 伺服器中進行管理。
-
-```cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"```
-
-```./mysql -u root -p```
-
+```
+cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
+```
+```
+./mysql -u root -p
+```
 輸入安裝時設定的 root 密碼
 
 *  建立⼀個新的資料庫，取名字為 website。
