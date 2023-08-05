@@ -87,3 +87,7 @@ INNER JOIN message ON member.id = message.member_id WHERE username = "test";
 SELECT AVG(like_count) FROM member INNER JOIN message ON member.id = message.member_id WHERE username = "test";
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5-3.jpg)
+
+| 111 | 222 | 333 |
+| -------- | -------- | -------- |
+| 111 | 222| 333|
