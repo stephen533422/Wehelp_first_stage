@@ -67,7 +67,27 @@ SELECT AVG(follower_count) FROM member;
 |content   |varchar(255)|不可為空值                                 |留⾔內容      |
 |like_count|int unsigned|不可為空值，預設為 0                       |按讚的數量    |
 |time      |datetime    |不可為空值，預設為當前時間                 |留⾔時間|
-
+```
+CREATE TABLE message (    
+    id BIGINT primary key auto_increment,
+    member_id BIGINT NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    like_count INT UNSIGNED NOT NULL DEFAULT 0,    
+    time DATETIME NOT NULL DEFAULT NOW(),
+    FOREIGN KEY(member_id) REFERENCES member(id)
+    );  
+INSERT INTO message (member_id, content, like_count)
+VALUES (1,"hi",6),
+       (3,"hello",9),
+       (4,"hihi",8),
+       (2,"hey",1),
+       (5,"yo",6),
+       (1,"hi",6),
+       (1,"hello",9),
+       (5,"hihi",8),
+       (2,"hey",1),
+       (3,"yo",6);
+```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5.jpg)
 *  使⽤ SELECT 搭配 JOIN 語法，取得所有留⾔，結果須包含留⾔者的姓名。
 ```sql
