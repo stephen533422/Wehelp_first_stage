@@ -2,11 +2,11 @@
 ## Task 3:
 *  使⽤ INSERT 指令新增⼀筆資料到 member 資料表中，這筆資料的 username 和 password 欄位必須是 test。接著繼續新增⾄少 4 筆隨意的資料。
 ```sql
-INSERT INTO member (name, username, password) VALUES ("test","test","test");
-INSERT INTO member (name, username, password) VALUES ("ann","ann222","ann");
-INSERT INTO member (name, username, password) VALUES ("alex","alex123","alex");
-INSERT INTO member (name, username, password) VALUES ("alice","alice777","alice");
-INSERT INTO member (name, username, password) VALUES ("allen","allen666","allen");
+INSERT INTO member (name, username, password, follower_count) VALUES ("test","test","test", 0);
+INSERT INTO member (name, username, password, follower_count) VALUES ("ann","ann222","ann", 5);
+INSERT INTO member (name, username, password, follower_count) VALUES ("alex","alex123","alex", 10);
+INSERT INTO member (name, username, password, follower_count) VALUES ("alice","alice777","alice", 20);
+INSERT INTO member (name, username, password, follower_count) VALUES ("allen","allen666","allen", 30);
 ```
 ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task3-1.jpg)
 *  使⽤ SELECT 指令取得所有在 member 資料表中的會員資料。
