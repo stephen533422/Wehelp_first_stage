@@ -7,7 +7,7 @@ cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
 ```
 ./mysql -u root -p
 ```
-    輸入安裝時設定的 root 密碼
+  輸入安裝時設定的 root 密碼
 
 *  建立⼀個新的資料庫，取名字為 website。
 ```
