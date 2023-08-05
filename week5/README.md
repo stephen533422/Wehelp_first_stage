@@ -13,7 +13,7 @@ cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
 ```
 CREATE DATABASE website;
 ```
-*  使用資料庫```USE <DATABASE NAME>```
+*  使用資料庫```USE <name>```
 ```
 USE website;
 ```
@@ -38,9 +38,14 @@ CREATE TABLE member (
     time DATETIME NOT NULL DEFAULT NOW()
     );
 ```
-*  顯示資料表的內容```DESC <TABLE NAME>```
+*  顯示資料表的內容```DESC <name>```
 ```
 DESC member;
+```
+*  刪除資料庫或資料表
+```
+DROP DATABASE <name>
+DROP TABLE <name>
 ```
 ## Task 3:
 *  使⽤ INSERT 指令新增⼀筆資料到 member 資料表中，這筆資料的 username 和 password 欄位必須是 test。接著繼續新增⾄少 4 筆隨意的資料。
