@@ -1,4 +1,42 @@
 # Week 5
+## pre-processing:
+*  透過終端機 Command Line 介⾯，連結到 MySQL 伺服器中進行管理。
+```cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"```
+```./mysql -u root -p```
+輸入安裝時設定的 root 密碼
+*  建立⼀個新的資料庫，取名字為 website。
+```
+CREATE DATABASE website;
+```
+*  使用資料庫```USE <DATABASE NAME>```
+```
+USE website;
+```
+*  在資料庫中，建立會員資料表，取名字為 member。
+
+|  欄位名稱    |  資料型態  |  額外設定                                 |  用途說明    |
+|:---------    |:-----------|:------------------------------------------|:-------------| 
+| id           |bigint      |主鍵、⾃動遞增                             |獨立編號      |
+|name          |varchar(255)|不可為空值                                 |姓名          |
+|username      |varchar(255)|不可為空值                                 |帳戶名稱      |
+|password      |varchar(255)|不可為空值                                 |帳戶密碼      |
+|follower_count|int unsigned|不可為空值，預設為 0                       |追蹤者數量    |
+|time          |datetime    |不可為空值，預設為當前時間                 |註冊時間      |
+
+```
+CREATE TABLE member (    
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,    
+    password VARCHAR(255) NOT NULL,    
+    follower_count INT UNSIGNED NOT NULL DEFAULT 0,    
+    time DATETIME NOT NULL DEFAULT NOW()
+    );
+```
+*  顯示資料表的內容```DESC <TABLE NAME>```
+```
+DESC member;
+```
 ## Task 3:
 *  使⽤ INSERT 指令新增⼀筆資料到 member 資料表中，這筆資料的 username 和 password 欄位必須是 test。接著繼續新增⾄少 4 筆隨意的資料。
 ```sql
