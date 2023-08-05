@@ -66,7 +66,7 @@ SELECT AVG(follower_count) FROM member;
 |like_count|int unsigned|不可為空值，預設為 0                       |按讚的數量    |
 |time      |datetime    |不可為空值，預設為當前時間                 |留⾔時間|
 *  在資料庫中，建立新資料表紀錄留⾔資訊，取名字為 message。
-![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5.jpg)
+*  ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week5/pic/task5.jpg)
 *  使⽤ SELECT 搭配 JOIN 語法，取得所有留⾔，結果須包含留⾔者的姓名。
 ```sql
 SELECT member.name, message.content, message.like_count, message.time FROM member 
