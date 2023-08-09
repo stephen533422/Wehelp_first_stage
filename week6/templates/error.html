@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+失敗頁面
+{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static',filename='message.css') }}">{% endblock css %}
+{% block body %}
+        <div class="container">
+            <div class="welcome">
+                失敗頁面
+            </div>
+                <div class="message">
+                    {% if message == "invalid" %}
+                    <div class="text">帳號、或密碼輸入錯誤</div>
+                    {% elif message == "empty" %}
+                    <div class="text">請輸入帳號、密碼</div>
+                    {% elif message == "signedup" %}
+                    <div class="text">帳號已經被註冊</div>
+                    {% endif %}
+                </div>
+        </div>
+{% endblock body %}

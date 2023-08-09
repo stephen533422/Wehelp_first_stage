@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+成功登入
+{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static',filename='message.css') }}">{% endblock css %}
+{% block body %}
+        <div class="container">
+            <div class="welcome">歡迎光臨，這是會員頁</div>
+                <div class="message">
+                    <div class="text">{{ name }}，歡迎登入系統</div>
+                    <a href="\signout">登出系統</a>
+                </div>
+                <div class="container2">
+                    <form class=form action="createMessage" method="POST">
+                        <div class="sub_title">快來留言吧</div>
+                        <div class="content">
+                            <div class="text_left">內容</div>
+                            <input type="text" name="content" id="content"/>
+                        </div>
+                        <div class="submit_btn">
+                            <input type="submit" id="submit_btn" value="送出" name="submit"/>
+                        </div>
+                    </form>
+                </div>
+                {% if messages != [] %}
+                <div class="container3">
+                    <div class="message_board">
+                        {% for message in messages %}
+                        <div class="text"><span class="name_content">{{ message[1] }}</span>: {{ message[2] }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+        </div>
+        <script src="{{ url_for('static',filename='home.js') }}"></script>
+{% endblock body %}
