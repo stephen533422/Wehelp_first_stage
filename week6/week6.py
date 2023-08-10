@@ -100,8 +100,8 @@ def signin():
 def member():
     if flask.session.get("SIGNED-IN") == False or flask.session.get("SIGNED-IN") == None:
         return flask.redirect("/")
+    id = flask.session["id"]
     name = flask.session["name"]
-    
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -120,14 +120,14 @@ def member():
                 FOREIGN KEY(member_id) REFERENCES member(id)
                 )""")
         cursor.execute(create_stmt)
-        select_stmt = "SELECT message.id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
+        select_stmt = "SELECT message.id, message.member_id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
         cursor.execute(select_stmt)
         messages = cursor.fetchall()
         print(messages)
     finally:
         cursor.close()
         connection.close()
-    return flask.render_template("member.html", name=name, messages=messages)
+    return flask.render_template("member.html", id=id,name=name, messages=messages)
 
 @app.route("/createMessage", methods =["POST"])
 def createMessage():
@@ -157,6 +157,44 @@ def createMessage():
         insert_stmt = "INSERT INTO message (member_id, content) VALUES( %s, %s);"
         user_data = (id, content)
         cursor.execute(insert_stmt, user_data)
+        connection.commit()
+    finally:
+        cursor.close()
+        connection.close()
+    return flask.redirect( flask.url_for("member"))
+
+@app.route("/deleteMessage", methods=["POST"])
+def deleteMessage():
+    if flask.session.get("SIGNED-IN") == False or flask.session.get("SIGNED-IN") == None :
+        return flask.redirect("/")
+    message_id = flask.request.form["message_id"]
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="1234"
+        )
+        cursor=connection.cursor()
+        cursor.execute("USE website")
+        create_stmt= ("""
+            CREATE TABLE IF NOT EXISTS message (    
+                id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                member_id BIGINT NOT NULL,
+                content VARCHAR(255) NOT NULL,
+                like_count INT UNSIGNED NOT NULL DEFAULT 0,    
+                time DATETIME NOT NULL DEFAULT NOW(),
+                FOREIGN KEY(member_id) REFERENCES member(id)
+                )""")
+        cursor.execute(create_stmt)
+        delete_stmt = "DELETE FROM message WHERE id = %s"
+        data = (message_id,)
+        cursor.execute(delete_stmt, data)
+        alter_stmt ="ALTER TABLE message AUTO_INCREMENT = 0"
+        cursor.execute(alter_stmt)
+        '''alter_stmt ="ALTER TABLE message DROP id"
+        cursor.execute(alter_stmt)
+        alter_stmt ="ALTER TABLE message ADD id BIGINT PRIMARY KEY AUTO_INCREMENT first"
+        cursor.execute(alter_stmt)'''
         connection.commit()
     finally:
         cursor.close()
