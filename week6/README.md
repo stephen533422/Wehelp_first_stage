@@ -5,7 +5,7 @@
 import mysql.connector
 ```
 *  建立connection物件
-```
+```python
 connection = mysql.connector.connect(
             host="localhost",
             user="root",
@@ -13,11 +13,11 @@ connection = mysql.connector.connect(
 )
 ```
 *  建立cursor物件
-```
+```python
 cursor = connection.cursor()
 ```
 *  執行MySQL語句
-```
+```python
 create_stmt= ("CREATE DATABASE IF NOT EXISTS website")
 cursor.execute(create_stmt)
 use_stmt= ("USE website")
