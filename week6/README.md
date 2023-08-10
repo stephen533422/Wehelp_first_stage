@@ -21,6 +21,7 @@ cursor = connection.cursor()
 cursor.execute()
 cursor.executemany()
 ```
+範例:
 ```python
 create_stmt= ("CREATE DATABASE IF NOT EXISTS website")
 cursor.execute(create_stmt)
@@ -41,6 +42,7 @@ cursor.execute(create_stmt)
 ```python
 connection.commit()
 ```
+範例:
 ```python
 insert_stmt = "INSERT INTO message (member_id, content) VALUES( %s, %s);"
 user_data = (id, content)
