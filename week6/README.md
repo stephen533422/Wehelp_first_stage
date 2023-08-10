@@ -7,9 +7,9 @@ import mysql.connector
 *  建立connection物件
 ```python
 connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234"
+            host = "localhost",
+            user = "root",
+            password = "1234"
 )
 ```
 *  建立cursor物件
