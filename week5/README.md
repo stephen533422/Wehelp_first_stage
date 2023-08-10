@@ -10,11 +10,11 @@ cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
   輸入安裝時設定的 root 密碼
 
 *  建立⼀個新的資料庫，取名字為 website。
-```
+```sql
 CREATE DATABASE website;
 ```
 *  使用資料庫```USE <name>```
-```
+```sql
 USE website;
 ```
 *  在資料庫中，建立會員資料表，取名字為 member。
@@ -28,7 +28,7 @@ USE website;
 |follower_count|int unsigned|不可為空值，預設為 0                       |追蹤者數量    |
 |time          |datetime    |不可為空值，預設為當前時間                 |註冊時間      |
 
-```
+```sql
 CREATE TABLE member (    
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE member (
     );
 ```
 *  顯示資料表的內容```DESC <name>```
-```
+```sql
 DESC member;
 ```
 *  刪除資料庫或資料表
@@ -115,7 +115,7 @@ SELECT AVG(follower_count) FROM member;
 |content     |varchar(255)|不可為空值                                 |留言內容      |
 |like_count  |int unsigned|不可為空值，預設為 0                       |按讚的數量    |
 |time        |datetime    |不可為空值，預設為當前時間                 |留言時間      |
-```
+```sql
 CREATE TABLE message (    
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     member_id BIGINT NOT NULL,
