@@ -123,7 +123,7 @@ def member():
         select_stmt = "SELECT message.id, message.member_id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
         cursor.execute(select_stmt)
         messages = cursor.fetchall()
-        print(messages)
+        # print(messages)
     finally:
         cursor.close()
         connection.close()
