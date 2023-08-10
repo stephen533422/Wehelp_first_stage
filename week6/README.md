@@ -18,6 +18,10 @@ cursor = connection.cursor()
 ```
 *  執行MySQL語句
 ```python
+cursor.execute()
+cursor.executemany()
+```
+```python
 create_stmt= ("CREATE DATABASE IF NOT EXISTS website")
 cursor.execute(create_stmt)
 use_stmt= ("USE website")
@@ -32,4 +36,20 @@ create_stmt= ("""
         time DATETIME NOT NULL DEFAULT NOW())"""
 )
 cursor.execute(create_stmt)
+```
+*  提交變更
+```python
+connection.commit()
+```
+```python
+insert_stmt = "INSERT INTO message (member_id, content) VALUES( %s, %s);"
+user_data = (id, content)
+cursor.execute(insert_stmt, user_data)
+connection.commit()
+```
+*  獲取資料
+```python
+cursor.fetchone() # 獲取查詢結果的單筆資料
+cursor.fetchmany(n) # 獲取查詢結果的n筆資料
+cursor.fetchall() # 獲取查詢結果的所有資料
 ```
