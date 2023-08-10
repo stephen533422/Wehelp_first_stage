@@ -117,7 +117,7 @@ SELECT AVG(follower_count) FROM member;
 |time        |datetime    |不可為空值，預設為當前時間                 |留言時間      |
 ```
 CREATE TABLE message (    
-    id BIGINT primary key auto_increment,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     member_id BIGINT NOT NULL,
     content VARCHAR(255) NOT NULL,
     like_count INT UNSIGNED NOT NULL DEFAULT 0,    
