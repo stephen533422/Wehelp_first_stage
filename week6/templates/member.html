@@ -11,7 +11,7 @@
                     <a href="\signout">登出系統</a>
                 </div>
                 <div class="container2">
-                    <form class=form action="createMessage" method="POST">
+                    <form class=form action="createMessage" method="POST" onsubmit="return checkContent();">
                         <div class="sub_title">快來留言吧</div>
                         <div class="content">
                             <div class="text_left">內容</div>
@@ -26,11 +26,19 @@
                 <div class="container3">
                     <div class="message_board">
                         {% for message in messages %}
-                        <div class="text"><span class="name_content">{{ message[1] }}</span>: {{ message[2] }}</div>
+                        <div class="text">
+                            <form action="deleteMessage" method="POST" onsubmit="return checkDel();">
+                                <span class="member_name">{{ message[2] }}</span>: {{ message[3] }} 
+                                {% if message[1] == id %}
+                                <input name="message_id" type="hidden" value="{{ message[0] }}">
+                                <button type="submit">X</button>
+                                {% endif %}
+                            </form>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
                 {% endif %}
         </div>
-        <script src="{{ url_for('static',filename='home.js') }}"></script>
+        <script src="{{ url_for('static',filename='message.js') }}"></script>
 {% endblock body %}

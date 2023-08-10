@@ -10,12 +10,13 @@
             </div>
                 <div class="message">
                     {% if message == "invalid" %}
-                    <div class="text">帳號、或密碼輸入錯誤</div>
+                    <div class="text">帳號或密碼輸入錯誤</div>
                     {% elif message == "empty" %}
                     <div class="text">請輸入帳號、密碼</div>
                     {% elif message == "signedup" %}
                     <div class="text">帳號已經被註冊</div>
                     {% endif %}
+                    <a href="\">返回首頁</a>
                 </div>
         </div>
 {% endblock body %}
