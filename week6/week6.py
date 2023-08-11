@@ -19,23 +19,10 @@ def signup():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234"
+            password="1234",
+            database="website"
         )
         cursor = connection.cursor()
-        create_stmt= ("CREATE DATABASE IF NOT EXISTS website")
-        cursor.execute(create_stmt)
-        use_stmt= ("USE website")
-        cursor.execute(use_stmt)
-        create_stmt= ("""
-            CREATE TABLE IF NOT EXISTS member (
-                id BIGINT PRIMARY KEY AUTO_INCREMENT,
-                name VARCHAR(255) NOT NULL,
-                username VARCHAR(255) NOT NULL,    
-                password VARCHAR(255) NOT NULL,    
-                follower_count INT UNSIGNED NOT NULL DEFAULT 0,    
-                time DATETIME NOT NULL DEFAULT NOW())"""
-        )
-        cursor.execute(create_stmt)
         select_stmt = "SELECT * FROM member WHERE username = %s;"
         cursor.execute(select_stmt, (username,))
         issigned = cursor.fetchone()
@@ -63,22 +50,10 @@ def signin():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234"
+            password="1234",
+            database="website"
         )
         cursor=connection.cursor()
-        create_stmt= ("CREATE DATABASE IF NOT EXISTS website")
-        cursor.execute(create_stmt)
-        cursor.execute("USE website")
-        create_stmt= ("""
-            CREATE TABLE IF NOT EXISTS member (
-                id BIGINT PRIMARY KEY AUTO_INCREMENT,
-                name VARCHAR(255) NOT NULL,
-                username VARCHAR(255) NOT NULL,    
-                password VARCHAR(255) NOT NULL,    
-                follower_count INT UNSIGNED NOT NULL DEFAULT 0,    
-                time DATETIME NOT NULL DEFAULT NOW())"""
-        )
-        cursor.execute(create_stmt)
         select_stmt=("SELECT * from member WHERE username = %s")
         data=(username,)
         cursor.execute(select_stmt, data)
@@ -106,20 +81,10 @@ def member():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234"
+            password="1234",
+            database="website"
         )
         cursor=connection.cursor()
-        cursor.execute("USE website")
-        create_stmt= ("""
-            CREATE TABLE IF NOT EXISTS message (    
-                id BIGINT primary key auto_increment,
-                member_id BIGINT NOT NULL,
-                content VARCHAR(255) NOT NULL,
-                like_count INT UNSIGNED NOT NULL DEFAULT 0,    
-                time DATETIME NOT NULL DEFAULT NOW(),
-                FOREIGN KEY(member_id) REFERENCES member(id)
-                )""")
-        cursor.execute(create_stmt)
         select_stmt = "SELECT message.id, message.member_id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
         cursor.execute(select_stmt)
         messages = cursor.fetchall()
@@ -140,20 +105,10 @@ def createMessage():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234"
+            password="1234",
+            database="website"
         )
         cursor=connection.cursor()
-        cursor.execute("USE website")
-        create_stmt= ("""
-            CREATE TABLE IF NOT EXISTS message (    
-                id BIGINT primary key auto_increment,
-                member_id BIGINT NOT NULL,
-                content VARCHAR(255) NOT NULL,
-                like_count INT UNSIGNED NOT NULL DEFAULT 0,    
-                time DATETIME NOT NULL DEFAULT NOW(),
-                FOREIGN KEY(member_id) REFERENCES member(id)
-                )""")
-        cursor.execute(create_stmt)
         insert_stmt = "INSERT INTO message (member_id, content) VALUES( %s, %s);"
         user_data = (id, content)
         cursor.execute(insert_stmt, user_data)
@@ -172,20 +127,10 @@ def deleteMessage():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234"
+            password="1234",
+            database="website"
         )
         cursor=connection.cursor()
-        cursor.execute("USE website")
-        create_stmt= ("""
-            CREATE TABLE IF NOT EXISTS message (    
-                id BIGINT PRIMARY KEY AUTO_INCREMENT,
-                member_id BIGINT NOT NULL,
-                content VARCHAR(255) NOT NULL,
-                like_count INT UNSIGNED NOT NULL DEFAULT 0,    
-                time DATETIME NOT NULL DEFAULT NOW(),
-                FOREIGN KEY(member_id) REFERENCES member(id)
-                )""")
-        cursor.execute(create_stmt)
         delete_stmt = "DELETE FROM message WHERE id = %s"
         data = (message_id,)
         cursor.execute(delete_stmt, data)
