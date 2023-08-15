@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+成功登入
+{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static',filename='message.css') }}">{% endblock css %}
+{% block body %}
+        <div class="container">
+            <div class="welcome">歡迎光臨，這是會員頁</div>
+                <div class="message">
+                    <div class="text">{{ member_name }}，歡迎登入系統</div>
+                    <a href="\signout">登出系統</a>
+                </div>
+                <div class="search">
+                    <form class="searchUser_form" action="#">
+                        <div class="sub_title">查詢會員姓名</div>
+                        <input type="text" name="search_username" id="search_username"/>
+                        <button type="button" onclick="searchUser(this.parentNode.search_username.value);">查詢</button>
+                    </form>
+                    <div class="result"></div>
+                </div>
+                <div class="rename">
+                    <form class="rename_form" action="#">
+                        <div class="sub_title">更改我的姓名</div>
+                        <input type="text" name="new_name" id="new_name"/>
+                        <button type="button" onclick="changeName(this.parentNode.new_name.value);">更新</button>
+                    </form>
+                    <div class="result"></div>
+                </div>
+                <div class="container2">
+                    <form class="createMessage_form" action="createMessage" method="POST" onsubmit="return checkContent();">
+                        <div class="sub_title">快來留言吧</div>
+                        <div class="content">
+                            <div class="text_left">內容</div>
+                            <input type="text" name="content" id="content"/>
+                        </div>
+                        <div class="submit_btn">
+                            <button type="submit" id="submit_btn" name="submit">送出</button>
+                        </div>
+                    </form>
+                </div>
+                {% if messages != [] %}
+                <div class="container3">
+                    <div class="message_board">
+                        {% for message in messages %}
+                        <div class="text">
+                            <form action="deleteMessage" method="POST" onsubmit="return checkDel();">
+                                <span class="member_name">{{ message["name"] }}</span>: {{ message["content"] }} 
+                                {% if message["member_id"] == member_id %}
+                                <input name="message_id" type="hidden" value="{{ message['id'] }}">
+                                <button type="submit">X</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+        </div>
+        <script src="{{ url_for('static',filename='message.js') }}"></script>
+{% endblock body %}
