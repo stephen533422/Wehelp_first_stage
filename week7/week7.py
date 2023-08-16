@@ -4,6 +4,12 @@ import os
 
 app = flask.Flask(__name__)
 app.secret_key = os.urandom(12).hex()
+db_config = {
+  'host': 'localhost',
+  'user': 'root',
+  'password': '1234',
+  'database': 'website',
+}
 
 @app.route("/")
 def index():
@@ -15,12 +21,7 @@ def signup():
     username = flask.request.form["username"]
     password = flask.request.form["password"]
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
         select_stmt = "SELECT * FROM member WHERE username = %s;"
         cursor.execute(select_stmt, (username,))
@@ -46,12 +47,7 @@ def signin():
     if username == "" or password == "":
         return flask.redirect( flask.url_for("errorMessage", message = "empty"))
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor=connection.cursor(dictionary=True)
         select_stmt=("SELECT * from member WHERE username = %s")
         data=(username,)
@@ -76,12 +72,7 @@ def member():
     id = flask.session["id"]
     name = flask.session["name"]
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor=connection.cursor(dictionary=True)
         select_stmt = "SELECT message.id, message.member_id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
         cursor.execute(select_stmt)
@@ -98,12 +89,7 @@ def createMessage():
     id = flask.session["id"]
     content = flask.request.form["content"]
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor=connection.cursor()
         insert_stmt = "INSERT INTO message (member_id, content) VALUES( %s, %s);"
         user_data = (id, content)
@@ -120,12 +106,7 @@ def deleteMessage():
         return flask.redirect("/")
     message_id = flask.request.form["message_id"]
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor=connection.cursor()
         delete_stmt = "DELETE FROM message WHERE id = %s"
         data = (message_id,)
@@ -161,12 +142,7 @@ def errorMessage():
 def apiMember():
     username=flask.request.args.get("username")
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor=connection.cursor(dictionary=True)
         select_stmt = "SELECT * FROM member WHERE username = %s;"
         cursor.execute(select_stmt, (username,))
@@ -191,12 +167,7 @@ def changeName():
     username=flask.session.get("username")
     data={"name":newname, "username":username}
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="website"
-        )
+        connection = mysql.connector.connect(**db_config)
         cursor=connection.cursor(dictionary=True)
         update_stmt = "UPDATE member SET name = %(name)s WHERE username = %(username)s;"
         cursor.execute(update_stmt, data)
