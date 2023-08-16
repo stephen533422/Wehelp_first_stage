@@ -14,7 +14,6 @@ def signup():
     name = flask.request.form["name"]
     username = flask.request.form["username"]
     password = flask.request.form["password"]
-    # print(name, username, password)
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -26,7 +25,6 @@ def signup():
         select_stmt = "SELECT * FROM member WHERE username = %s;"
         cursor.execute(select_stmt, (username,))
         issigned = cursor.fetchone()
-        # print("user sign up: ", issigned)
         if issigned != None:
             print("already signed up")
             return flask.redirect( flask.url_for("errorMessage", message = "signedup"))
@@ -59,7 +57,6 @@ def signin():
         data=(username,)
         cursor.execute(select_stmt, data)
         users = cursor.fetchone()
-        # print(users)
     finally:
         cursor.close()
         connection.close()
@@ -89,7 +86,6 @@ def member():
         select_stmt = "SELECT message.id, message.member_id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
         cursor.execute(select_stmt)
         messages = cursor.fetchall()
-        # print(messages)
     finally:
         cursor.close()
         connection.close()
@@ -101,7 +97,6 @@ def createMessage():
         return flask.redirect("/")
     id = flask.session["id"]
     content = flask.request.form["content"]
-    # print("you enter: ",content)
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -176,7 +171,6 @@ def apiMember():
         select_stmt = "SELECT * FROM member WHERE username = %s;"
         cursor.execute(select_stmt, (username,))
         userdata = cursor.fetchone()
-        # print("user sign up: ", issigned)
         if userdata != None and flask.session.get("SIGNED-IN") == True:
             data={"id":userdata["id"], "name":userdata["name"], "username":userdata["username"]}
             return_data={"data":data}
@@ -195,7 +189,7 @@ def changeName():
         return flask.jsonify(return_data)
     newname=flask.request.get_json().get("name")
     username=flask.session.get("username")
-    # print(newname)
+    data={"name":newname, "username":username}
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -204,8 +198,8 @@ def changeName():
             database="website"
         )
         cursor=connection.cursor(dictionary=True)
-        update_stmt = f"UPDATE member SET name = '{newname}' WHERE username = '{username}';"
-        cursor.execute(update_stmt)
+        update_stmt = "UPDATE member SET name = %(name)s WHERE username = %(username)s;"
+        cursor.execute(update_stmt, data)
         connection.commit()
     finally:
         cursor.close()
