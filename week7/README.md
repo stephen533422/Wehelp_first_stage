@@ -24,7 +24,7 @@ return_data={"data":data}
 # jsonify() 轉換JSON格式
 return flask.jsonify(return_data)
 ```
-*  使用fetch獲取response
+*  JS使用fetch獲取response
 ```JavaScript
 // fetch 預設method為 GET
 function getData(url){
