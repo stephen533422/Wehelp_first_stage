@@ -28,10 +28,11 @@
                         {% for message in messages %}
                         <div class="text">
                             <form action="deleteMessage" method="POST" onsubmit="return checkDel();">
-                                <span class="member_name">{{ message[2] }}</span>: {{ message[3] }} 
-                                {% if message[1] == id %}
-                                <input name="message_id" type="hidden" value="{{ message[0] }}">
+                                <span class="member_name">{{ message["name"] }}</span>: {{ message["content"] }} 
+                                {% if message["member_id"] == member_id %}
+                                <input name="message_id" type="hidden" value="{{ message['id'] }}">
                                 <button type="submit">X</button>
+                                {% endif %}
                                 {% endif %}
                             </form>
                         </div>
