@@ -55,3 +55,16 @@ cursor.fetchone() # 獲取查詢結果的單筆資料
 cursor.fetchmany(n) # 獲取查詢結果的n筆資料
 cursor.fetchall() # 獲取查詢結果的所有資料
 ```
+*  使用dictionary cursor 根據欄位取值
+```python
+# 建立cursor時設定dictionary = True
+cursor = connection.cursor(dictionary = True)
+```
+```html
+<!--根據欄位名稱取值-->
+<span class="member_name">{{ message["name"] }}</span>: {{ message["content"] }} 
+{% if message["member_id"] == member_id %}
+<input name="message_id" type="hidden" value="{{ message['id'] }}">
+<button type="submit">X</button>
+{% endif %}
+```
