@@ -30,10 +30,11 @@ def signup():
         if issigned != None:
             print("already signed up")
             return flask.redirect( flask.url_for("errorMessage", message = "signedup"))
-        insert_stmt = "INSERT INTO member (name, username, password) VALUES( %s, %s, %s);"
-        user_data = (name, username, password)
-        cursor.execute(insert_stmt, user_data)
-        connection.commit()
+        else:
+            insert_stmt = "INSERT INTO member (name, username, password) VALUES( %s, %s, %s);"
+            user_data = (name, username, password)
+            cursor.execute(insert_stmt, user_data)
+            connection.commit()
     finally:
         cursor.close()
         connection.close()
@@ -53,7 +54,7 @@ def signin():
             password="1234",
             database="website"
         )
-        cursor=connection.cursor()
+        cursor=connection.cursor(dictionary=True)
         select_stmt=("SELECT * from member WHERE username = %s")
         data=(username,)
         cursor.execute(select_stmt, data)
@@ -63,10 +64,10 @@ def signin():
         cursor.close()
         connection.close()
     if users is not None:
-        if username == users[2] and password == users[3]:
-            flask.session["id"] = users[0]
-            flask.session["name"] = users[1]
-            flask.session["username"] = users[2]
+        if username == users["username"] and password == users["password"]:
+            flask.session["id"] = users["id"]
+            flask.session["name"] = users["name"]
+            flask.session["username"] = users["username"]
             flask.session["SIGNED-IN"] = True
             return flask.redirect( flask.url_for("member"))
     return flask.redirect( flask.url_for("errorMessage", message = "invalid"))
@@ -84,7 +85,7 @@ def member():
             password="1234",
             database="website"
         )
-        cursor=connection.cursor()
+        cursor=connection.cursor(dictionary=True)
         select_stmt = "SELECT message.id, message.member_id, member.name, message.content FROM member INNER JOIN message ON member.id = message.member_id ORDER BY message.time DESC;"
         cursor.execute(select_stmt)
         messages = cursor.fetchall()
@@ -92,7 +93,7 @@ def member():
     finally:
         cursor.close()
         connection.close()
-    return flask.render_template("member.html", id=id,name=name, messages=messages)
+    return flask.render_template("member.html", member_id=id, member_name=name, messages=messages)
 
 @app.route("/createMessage", methods =["POST"])
 def createMessage():
