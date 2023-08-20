@@ -3,6 +3,8 @@
 *  新增Endpoint
 ```python
 @app.route("/api/member", methods=["GET"])
+```
+```python
 @app.route("/api/member", methods=["PATCH"])
 ```
 *  使用db_config 儲存 connect參數
