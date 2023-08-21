@@ -9,6 +9,10 @@
 * back-end
 ### AJAX 與 CORS
 * CROS
+  * 為何會發生?
+    ```
+    The same-origin policy is a critical security mechanism that restricts how a document or script loaded by one origin can interact with a resource from another origin.
+    ```
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
 * index
