@@ -21,8 +21,7 @@
     party webmail service (which the user is signed into) or a company intranet (which is protected from 
     direct access by the attacker by not having a public IP address) and relaying that data to the attacker.
     
-    同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路
-    郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
+    同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源
     
     ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75)<br/>
@@ -39,10 +38,7 @@
   * Access-Control-Allow-Origin
     
      fetch和XMLhttprequest都是會跟從同源政策
-     如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-
-     Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的
-     Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在
-     公共API裏常見的設定。
+     如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
 * index
