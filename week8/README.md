@@ -35,12 +35,29 @@
     |https://store.company.com/page.html 	           |$\textcolor{red}{Failure}$      |Different protocol|
     |http://store.company.com:81/dir/page.html 	     |$\textcolor{red}{Failure}$      |Different port (http:// is port 80 by default)|
     |http://news.company.com/dir/page.html 	         |$\textcolor{red}{Failure}$      |Different host|
-  * CROS
-    >Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources. CORS also relies on a mechanism by which browsers make a "preflight" request to the server hosting the cross-origin resource, in order to check that the server will permit the actual request. In that preflight, the browser sends headers that indicate the HTTP method and headers that will be used in the actual request.
+  * 甚麼是CROS?
+    >**Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources.** CORS also relies on a mechanism by which browsers make a "preflight" request to the server hosting the cross-origin resource, in order to check that the server will permit the actual request. In that preflight, the browser sends headers that indicate the HTTP method and headers that will be used in the actual request.
+  * 我們可以在⾃⼰的網⾴中，使⽤ fetch() 或是 XMLHttpRequest 連結到https://www.google.com/ 並取得回應嗎？
+    ```.js
+    fetch("https://www.google.com" )
+      .then((response) => response.json())
+      .then((json) => { console.log(json);})
+    ```
+    ![](/week8_4_2.jpg)<br/>
+    會得到錯誤訊息( status: CORS error	)，仔細看會發現`No 'Access-Control-Allow-Origin' header is present on the request resource.`
+  * 我們可以在⾃⼰的網⾴中，使⽤ fetch() 或是 XMLHttpRequest 連結到https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json 並取得回應嗎？和上述的狀況，差別在哪裡？
+    ```.js
+    fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json" )
+      .then((response) => response.json())
+      .then((json) => { console.log(json);})
+    ```
+    ![](/week8_4_3.jpg)<br/>
+    可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
   * Access-Control-Allow-Origin
-    
-     fetch和XMLhttprequest都是會跟從同源政策<br/>
-     如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
+    fetch和XMLhttprequest都是會跟從同源政策<br/>
+    如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
+Refrerence: https://ithelp.ithome.com.tw/articles/10253549
+---
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
 * index
