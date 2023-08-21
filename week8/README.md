@@ -23,9 +23,8 @@
     
     同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源
-    
-    ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75) <br/>
-    ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
+    ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75) 
+    <br/>( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
     |URL 	|Outcome 	|Reason|
@@ -43,16 +42,16 @@
       .then((response) => response.json())
       .then((json) => { console.log(json);})
     ```
-    ![](/week8_4_2.jpg) <br/>
-    會得到錯誤訊息( status: CORS error	)，仔細看會發現`No 'Access-Control-Allow-Origin' header is present on the request resource.`
+    ![](/week8_4_2.jpg)
+    <br/>會得到錯誤訊息( status: CORS error	)，仔細看會發現`No 'Access-Control-Allow-Origin' header is present on the request resource.`
   * 我們可以在⾃⼰的網⾴中，使⽤ fetch() 或是 XMLHttpRequest 連結到https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json 並取得回應嗎？和上述的狀況，差別在哪裡？
     ```.js
     fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json" )
       .then((response) => response.json())
       .then((json) => { console.log(json);})
     ```
-    ![](/week8_4_3.jpg) <br/>
-    可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
+    ![](/week8_4_3.jpg)
+    <br/>可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
   * Access-Control-Allow-Origin
     fetch和XMLhttprequest都是會跟從同源政策<br/>
     如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
