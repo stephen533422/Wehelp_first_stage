@@ -1,5 +1,6 @@
 # week 7
 ## 建立API
+### Python back-end
 *  新增Endpoint
 ```python
 @app.route("/api/member", methods=["GET"])
@@ -24,7 +25,13 @@ return_data={"data":data}
 # jsonify() 轉換JSON格式
 return flask.jsonify(return_data)
 ```
-*  JS使用fetch獲取response
+*  API接收PATCH Request，並回傳response
+```python
+# 使用get_json() 轉換JSON格式
+newname=flask.request.get_json().get("name")
+```
+### Javascript front-end
+*  JS使用fetch()獲取response
 ```JavaScript
 // fetch 預設method為 GET
 function getData(url){
@@ -42,8 +49,7 @@ function patchData(url, data){
     }).then((response) => response.json());
 }
 ```
-*  API接收PATCH Request，並回傳response
-```python
-# 使用get_json() 轉換JSON格式
-newname=flask.request.get_json().get("name")
+*  也可使用XMLHttpRequest
+```Javascript
+//待補
 ```
