@@ -23,7 +23,7 @@
     
     同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源
-    ![image](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75))
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_1.jpg)
     ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
