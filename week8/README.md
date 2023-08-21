@@ -31,8 +31,7 @@
 
     |URL 	|Outcome 	|Reason|
     |---|---|---|
-    |http://store.company.com/dir2/other.html 	      |<span color="red">red</span>
-$\textcolor{green}{Same origin}$|Only the path differs|
+    |http://store.company.com/dir2/other.html 	      |$\textcolor{green}{Same origin}$|Only the path differs|
     |http://store.company.com/dir/inner/another.html |$\textcolor{green}{Same origin}$|Only the path differs|
     |https://store.company.com/page.html 	           |$\textcolor{red}{Failure}$      |Different protocol|
     |http://store.company.com:81/dir/page.html 	     |$\textcolor{red}{Failure}$      |Different port (http:// is port 80 by default)|
