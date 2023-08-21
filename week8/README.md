@@ -1,9 +1,120 @@
 # week8
 ## 主題研究與實作
 ### CSS 選擇器的命名⽅式
-* OOCSS
-* SMACSS
-* BEM
+* OOCSS<br/>
+  OOCSS(Object-Oriented CSS)的設計模式是鼓勵開發者設計出的CSS複用性能夠達到極致，最終目的是希望你可以藉由一套CSS來設計日後幾百幾千頁的頁面，而不用再去額外新增Class。其中最主要代表的框架就是Bootstrap。<br/>
+  OOCSS 的設計裡面每一個 class 都是一個可以直接使用的 CSS 獨立個體。<br>
+  其設計理念為二:
+  * Separation of Structure from Skin：分離結構與樣式。結構像是元素的大小，樣式像是顏色等。
+    ```css
+    .btn {
+      width: 20px;
+      height: 100px;
+      color: red;
+      background-color: red;
+    }
+    ```
+    可以改寫成
+    ```css
+    .btn-red {
+      color: red;
+      background-color: red;
+    }
+    .btn {
+      width: 20px;
+      height: 100px;
+    }
+    ```
+    其中 OOCSS 中的結構與樣式的分離也有一個叫做 utilities 的觀念，也就是小工具，例如 padding、margin、border 及 width 等都可以作為一個小工具使用:
+    ```css
+    .pt-5 {
+      padding-top: 5px;
+    }
+    
+    .mt-5 {
+      margin-top: 5px;
+    }
+    
+    .border-all {
+      border: 1px solid #000000;
+    }
+    
+    .w-100 {
+      width: 100%;
+    }
+    ```
+  * Separation of Containers and Content：分離 HTML 與 CSS，意即盡量將可共用的樣式提取到單獨的 class 以供使用。
+    ```css
+    .header {
+      color: yellow;
+      width: 50px;
+      height: 50px;
+    }
+    .content {
+      color: red;
+      width: 50x;
+      height: 50px;
+    }
+    .footer {
+      color: blue;
+      width: 50px;
+      height: 50px;
+    }
+    ```
+    可以改寫成
+    ```css
+    .container {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .header {
+      color: yellow;
+    }
+    .content {
+      color: red;
+    }
+    .footer {
+      color: blue;
+    }
+    ```
+* SMACSS<br/>
+  SMACSS(Scalable and Modular Architecture for CSS)指可擴展與模組化的設計模式。
+  將結構分為五類:<br/>
+  * Base
+  * Layout
+  * Module
+  * State
+  * Theme
+* BEM<br/>
+  BEM 是一種 CSS class 命名的設計模式，其由 Yandex 公司提出，將介面切割成許多獨立的區塊，以區塊（Block）、元素（Element）和修飾子（Modifier）來命名。<br/>
+  優點是以元件觀念進行開發，具有重用性。它擁有 OOCSS 的架構清楚的美好，也沒有 SMACSS 複雜或令人混淆的部份。<br/>
+  另外，由於 BEM 是功能導向的，因此不會像是 OOCSS 或 SMASS 可能會出現為了區別樣式而產生像是 .mt-15（翻譯：margin-top: 15px）這種讓人難以理解的 class 名稱。<br/>
+  先看一個[官網](http://getbem.com/)的案例:
+  ![](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_1_3.jpg)
+  * 特色
+    * Block name 描述他的功能、區塊的目的，而非狀態。
+    * 不會添加樣式在裡面(例如：color, margin…等)。(因為要重複使用)
+    * 使用BEM 的同時，不會使用 CSS 標籤選擇器和 ID 選擇器。
+    * Block 命名方式：為單一單字`block`或使用1個破折號來連接過長的單字`block-name`。
+    * Element 是 Block 中的组成成分。
+    * Element 不能脫離 Block 單獨使用；但 Block 可以沒有 Element。
+    * Element 命名方式:`block-name__element-name`。
+    * Modifier name 定義了 Block 或 Element 的外觀，狀態或行為的實體。
+    * 同一個 Block name 或 Element name 可以允許多組 Modifier name。
+    * Modifier 命名方式：`block-name__element-name--modifier`。(原本的命名方式為1個底線 _，但因為閱讀性低而改良為現在的方式。)
+    * 例外:並非所有的 CSS 命名方式都要如此，當某些 CSS 設定可重複使用時，就可以獨立出來，讓該設定被重複使用。
+      ```css
+      .clearfix{
+          clear:both
+      }
+      .caps { 
+          text-transform: uppercase; 
+      } 
+      ```
+* Reference
+  * https://hackmd.io/@YIHQx96xTI-K9vDjhzEfDA/S1TBmnon9
+  * https://www.cythilya.tw/2018/06/05/css-methodologies/
 ### 完善資料驗證程序
 * front-end
 * back-end
@@ -56,10 +167,10 @@
 達到如同第 3 點的可能性。<br/>
       fetch和XMLhttprequest都是會跟從同源政策<br/>
       如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
-   * Refrerence <br/>
-       https://ithelp.ithome.com.tw/articles/10253549 <br/>
-       https://www.appsecmonkey.com/blog/same-origin-policy
-   ---
+* Refrerence
+  * https://ithelp.ithome.com.tw/articles/10253549
+  * https://www.appsecmonkey.com/blog/same-origin-policy
+---
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
 * index
