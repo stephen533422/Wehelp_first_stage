@@ -26,13 +26,13 @@
 ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75)
     MDN example:
 
-|URL 	|Outcome 	|Reason|
-|---|---|---|
-|http://store.company.com/dir2/other.html 	|Same origin 	|Only the path differs|
-|http://store.company.com/dir/inner/another.html 	|Same origin 	|Only the path differs|
-|https://store.company.com/page.html 	|Failure 	|Different protocol|
-|http://store.company.com:81/dir/page.html 	|Failure 	|Different port (http:// is port 80 by default)|
-|http://news.company.com/dir/page.html 	|Failure 	|Different host|
+    |URL 	|Outcome 	|Reason|
+    |---|---|---|
+    |http://store.company.com/dir2/other.html 	|Same origin 	|Only the path differs|
+    |http://store.company.com/dir/inner/another.html 	|Same origin 	|Only the path differs|
+    |https://store.company.com/page.html 	|Failure 	|Different protocol|
+    |http://store.company.com:81/dir/page.html 	|Failure 	|Different port (http:// is port 80 by default)|
+    |http://news.company.com/dir/page.html 	|Failure 	|Different host|
 
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
