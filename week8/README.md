@@ -22,9 +22,9 @@
     direct access by the attacker by not having a public IP address) and relaying that data to the attacker.
     
     同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
-  * same-origin 相同來源
-    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_1.jpg)
-    ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
+  * same-origin 相同來源<br/>
+      ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_1.jpg)
+      ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
     |URL 	|Outcome 	|Reason|
@@ -53,10 +53,10 @@
     ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_3.jpg)
     可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
   * 如何開放我們⾃⼰開發的 API，讓別的網站透過 fecth() 或是 XMLHttpRequest 連結，
-達到如同第 3 點的可能性。
+達到如同第 3 點的可能性。<br/>
       fetch和XMLhttprequest都是會跟從同源政策<br/>
       如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
-   * Refrerence
+   * Refrerence <br/>
        https://ithelp.ithome.com.tw/articles/10253549 <br/>
        https://www.appsecmonkey.com/blog/same-origin-policy
    ---
