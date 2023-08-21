@@ -31,11 +31,11 @@
 
     |URL 	|Outcome 	|Reason|
     |---|---|---|
-    |http://store.company.com/dir2/other.html 	      |$${\color{Same origin}Red}$$|Only the path differs|
-    |http://store.company.com/dir/inner/another.html |<font color=#008000>Same origin</font> |Only the path differs|
-    |https://store.company.com/page.html 	           |<font color=#FF0000>Failure</font>     |Different protocol|
-    |http://store.company.com:81/dir/page.html 	     |<font color=#FF0000>Failure</font>     |Different port (http:// is port 80 by default)|
-    |http://news.company.com/dir/page.html 	         |<font color=#FF0000>Failure</font>     |Different host|
+    |http://store.company.com/dir2/other.html 	      |$\textcolor{green}{Same origin}$|Only the path differs|
+    |http://store.company.com/dir/inner/another.html |$\textcolor{green}{Same origin}$|Only the path differs|
+    |https://store.company.com/page.html 	           |$\textcolor{red}{Failure}$      |Different protocol|
+    |http://store.company.com:81/dir/page.html 	     |$\textcolor{red}{Failure}$      |Different port (http:// is port 80 by default)|
+    |http://news.company.com/dir/page.html 	         |$\textcolor{red}{Failure}$      |Different host|
 
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
