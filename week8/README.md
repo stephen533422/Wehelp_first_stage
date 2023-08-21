@@ -27,6 +27,7 @@
     MDN example:
     
     |URL 	|Outcome 	|Reason|
+    |---|---|
     |http://store.company.com/dir2/other.html 	|Same origin 	|Only the path differs|
     |http://store.company.com/dir/inner/another.html 	|Same origin 	|Only the path differs|
     |https://store.company.com/page.html 	|Failure 	|Different protocol|
