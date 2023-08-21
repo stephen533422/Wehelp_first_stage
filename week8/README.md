@@ -53,11 +53,11 @@
     ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_3.jpg)
     可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
   * Access-Control-Allow-Origin
-     fetch和XMLhttprequest都是會跟從同源政策<br/>
-     如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
+      fetch和XMLhttprequest都是會跟從同源政策<br/>
+      如果我想發出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在公共API裏常見的設定。
    * Refrerence
-      https://ithelp.ithome.com.tw/articles/10253549 <br/>
-      https://www.appsecmonkey.com/blog/same-origin-policy
+       https://ithelp.ithome.com.tw/articles/10253549 <br/>
+       https://www.appsecmonkey.com/blog/same-origin-policy
    ---
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
