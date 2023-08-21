@@ -25,9 +25,8 @@
     郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源
     
-    ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75)
-
-    (image credict: https://www.appsecmonkey.com/blog/same-origin-policy)
+    ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75)<br/>
+    ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
     |URL 	|Outcome 	|Reason|
