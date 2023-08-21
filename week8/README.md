@@ -37,6 +37,7 @@
     |http://store.company.com:81/dir/page.html 	     |$\textcolor{red}{Failure}$      |Different port (http:// is port 80 by default)|
     |http://news.company.com/dir/page.html 	         |$\textcolor{red}{Failure}$      |Different host|
   * Access-Control-Allow-Origin
+    
     `Access-Control-Allow-Origin`的設定決定了我這邊是否能順利存取資源。如果我想發
      出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-
      Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的
