@@ -32,6 +32,7 @@
 |https://store.company.com/page.html 	|Failure 	|Different protocol|
 |http://store.company.com:81/dir/page.html 	|Failure 	|Different port (http:// is port 80 by default)|
 |http://news.company.com/dir/page.html 	|Failure 	|Different host|
+
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
 * index
