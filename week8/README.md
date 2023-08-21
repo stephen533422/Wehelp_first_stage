@@ -23,7 +23,7 @@
     
     同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源
-    ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75) 
+    ![image](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75)
     ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
@@ -42,7 +42,7 @@
       .then((response) => response.json())
       .then((json) => { console.log(json);})
     ```
-    ![](/week8_4_2.jpg)
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_2.jpg)
     會得到錯誤訊息( status: CORS error	)，仔細看會發現`No 'Access-Control-Allow-Origin' header is present on the request resource.`
   * 我們可以在⾃⼰的網⾴中，使⽤ fetch() 或是 XMLHttpRequest 連結到https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json 並取得回應嗎？和上述的狀況，差別在哪裡？
     ```.js
@@ -50,7 +50,7 @@
       .then((response) => response.json())
       .then((json) => { console.log(json);})
     ```
-    ![](/week8_4_3.jpg)
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_3.jpg)
     可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
   * Access-Control-Allow-Origin
     fetch和XMLhttprequest都是會跟從同源政策<br/>
