@@ -35,6 +35,8 @@
     |https://store.company.com/page.html 	           |$\textcolor{red}{Failure}$      |Different protocol|
     |http://store.company.com:81/dir/page.html 	     |$\textcolor{red}{Failure}$      |Different port (http:// is port 80 by default)|
     |http://news.company.com/dir/page.html 	         |$\textcolor{red}{Failure}$      |Different host|
+  * CROS
+    >Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources. CORS also relies on a mechanism by which browsers make a "preflight" request to the server hosting the cross-origin resource, in order to check that the server will permit the actual request. In that preflight, the browser sends headers that indicate the HTTP method and headers that will be used in the actual request.
   * Access-Control-Allow-Origin
     
      fetch和XMLhttprequest都是會跟從同源政策<br/>
