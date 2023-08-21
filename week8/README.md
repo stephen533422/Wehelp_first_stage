@@ -8,7 +8,7 @@
 * front-end
 * back-end
 ### AJAX 與 CORS
-* CROS
+* CROS ( Cross-Origin Resource Sharing 跨來源資源共享 )
   * same-origin policy 同源政策
 
     >The same-origin policy is a critical security mechanism that restricts how a document or script 
@@ -36,7 +36,12 @@
     |https://store.company.com/page.html 	           |$\textcolor{red}{Failure}$      |Different protocol|
     |http://store.company.com:81/dir/page.html 	     |$\textcolor{red}{Failure}$      |Different port (http:// is port 80 by default)|
     |http://news.company.com/dir/page.html 	         |$\textcolor{red}{Failure}$      |Different host|
-
+  * Access-Control-Allow-Origin
+    `Access-Control-Allow-Origin`的設定決定了我這邊是否能順利存取資源。如果我想發
+     出跨來源請求的話，對方的伺服器必須在回應表頭(response header)裏加上`Access-
+     Control-Allow-Origin`，並在`Access-Control-Allow-Origin`的設定裏，新增我的
+     Origin(即是我的網址)，或者設定為萬用字符`*`，代表所有Origin都接受，這是在
+     公共API裏常見的設定。
 ### 使⽤主鍵、索引優化資料庫查詢效率
 * Primary key
 * index
