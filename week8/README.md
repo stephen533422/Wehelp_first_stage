@@ -25,6 +25,7 @@
   * same-origin 相同來源
 ![](https://www.appsecmonkey.com/_next/image?url=%2Fstatic%2Fimages%2Fsame-origin-policy%2Ffigure-1.jpg&w=1920&q=75)
     MDN example:
+
 |URL 	|Outcome 	|Reason|
 |---|---|---|
 |http://store.company.com/dir2/other.html 	|Same origin 	|Only the path differs|
