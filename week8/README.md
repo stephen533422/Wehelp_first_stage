@@ -115,7 +115,7 @@
   優點是以元件觀念進行開發，具有重用性。它擁有 OOCSS 的架構清楚的美好，也沒有 SMACSS 複雜或令人混淆的部份。<br/>
   另外，由於 BEM 是功能導向的，因此不會像是 OOCSS 或 SMASS 可能會出現為了區別樣式而產生像是 .mt-15（翻譯：margin-top: 15px）這種讓人難以理解的 class 名稱。<br/>
   先看一個[官網](http://getbem.com/)的案例:
-  ![](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_1_3.jpg)
+  ![](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task1_1-3.jpg)
   * 特色
     * Block name 描述他的功能、區塊的目的，而非狀態。
     * 不會添加樣式在裡面(例如：color, margin…等)。(因為要重複使用)
@@ -159,7 +159,7 @@
     
     同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源<br/>
-      ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_1.jpg)
+      ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task3_1.jpg)
       ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
@@ -178,7 +178,7 @@
       .then((response) => response.json())
       .then((json) => { console.log(json);})
     ```
-    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_2.jpg)
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task3_2.jpg)
     會得到錯誤訊息( status: CORS error	)，仔細看會發現`No 'Access-Control-Allow-Origin' header is present on the request resource.`
   * 我們可以在⾃⼰的網⾴中，使⽤ fetch() 或是 XMLHttpRequest 連結到https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json 並取得回應嗎？和上述的狀況，差別在哪裡？
     ```.js
@@ -186,7 +186,7 @@
       .then((response) => response.json())
       .then((json) => { console.log(json);})
     ```
-    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_4_3.jpg)
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task3_3.jpg)
     可以發現有取得回應，查看Response Headers會發現有`Access-Control-Allow-Origin: *`
   * 如何開放我們⾃⼰開發的 API，讓別的網站透過 fecth() 或是 XMLHttpRequest 連結，
 達到如同第 3 點的可能性。<br/>
@@ -197,8 +197,68 @@
   * https://www.appsecmonkey.com/blog/same-origin-policy
 ---
 ### 使⽤主鍵、索引優化資料庫查詢效率
-* Primary key
-* index
+* Primary key 和 Index
+  * Primary key(pk, 主鍵)
+    * 是一種index，必須為unique，且不能為空值(NULL)，PK 會自動建立index。
+    * 每個 table 只能有一個primary key。
+  * Index
+    * 資料索引，可加快搜尋速度。
+    * 可以複合多個欄位建立索引，但因遵守最左前綴，使用時須評估欄位的優先順序去建立索引。
+* 新增index
+  ```MySQL
+  ALTER TABLE member ADD INDEX index_username(username);
+  ```
+* 查詢效率
+  可以在前面加上`EXPLAIN`分析查詢效率。
+  ```
+  EXPLAIN SELECT * FROM member WHERE username="test" and password="test";
+  ```
+  為甚麼index的設置能有效地改善查詢效率?<br/>
+  因為index使用B+Tree的資料結構建立，搜尋時可以使用Binary Search，理論上的T(n)=O(log(n))。
+  ![image](https://ithelp.ithome.com.tw/upload/images/20200301/20124671D3sL4qgCgd.png)
+* LIKE模糊查詢
+  假設一個Table有多個欄位，其中username是index，其他非index，id為primary key。<br/>
+  執行以下指令:
+  ```MySQL
+  EXPLAIN SELECT * from member where username like "test"; # 1
+  EXPLAIN SELECT * from member where username like "test%"; # 2
+  EXPLAIN SELECT * from member where username like "%test"; # 3
+  EXPLAIN SELECT * from member where username like "%test%"; # 4
+  ```
+  ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_5-1.jpg)
+  使用EXPLAIN會發現，其中1與2的type=range，key=index_name，代表使用index_name進行搜尋；<br/>
+  而3和4，type=ALL，代表搜尋對每一筆記錄進行完全scan，沒有用上index。<br/>
+  因为index_username的B+Tree是按照「index值」，也就是username character的順序進行排列的，例如:<br/>
+  ![image](https://use-the-index-luke.com/static/fig02_05_like.en.WF4fN8id.png)
+  <br/>因此當"%test"或"%test%"便無法使用index_username的順序進行搜尋。
+  
+  然而當搜尋的欄位只有username和id時:
+  ```MySQL
+  EXPLAIN SELECT id, username from member where username like "test"; # 1
+  EXPLAIN SELECT id, username from member where username like "test%"; # 2
+  EXPLAIN SELECT id, username from member where username like "%test"; # 3
+  EXPLAIN SELECT id, username from member where username like "%test%"; # 4
+  ```
+  ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_5-2.jpg)
+  3和4就會使用index搜尋，且type=index。<br/>
+  這是因為想要查詢的資料都在index_username的B+Tree，而輔助索引的B+ Tree的leaf node包含index value和primary key value，所以查index_username的B+Tree就能查到全部结果了，這就是所謂的覆蓋索引(covering index)。
+  * 叢集索引（Clustered Index）
+    * 當資料表設定了「叢集索引」，則資料表「實體資料列」的順序會依據叢集索引的值做排序
+    * 叢集索引上的葉子結點(leaf node)就是放所有的資料，又稱資料頁。
+    * 每一資料表只能有一個「叢集索引」
+    * 通常Primary Key預設為「叢集索引」
+  * 非叢集索引(Nonclustered Index, 又稱輔助索引secondary index)
+    * 資料列未根據非叢集索引進行排序與儲存
+    * 其葉子結點不包含每一筆資料的所有資料，只有建立該index的資料以及對應的叢集索引。
+    * 通常透過輔助索引搜尋的順序如下:<br>
+      透過輔助索引找到對應的葉子結點 -> 獲得對應叢集索引的 PK -> 透過叢集索引找到完整的資料
+* Reference:
+  * https://www.xiaolincoding.com/mysql/index/index_issue.html
+  * https://use-the-index-luke.com/sql/where-clause/searching-for-ranges/like-performance-tuning
+  * https://dotblogs.com.tw/EganBlog/2017/04/11/013049
+  * https://ithelp.ithome.com.tw/articles/10230211
+  * https://miggo.pixnet.net/blog/post/30862194
+  * https://medium.com/@michael80402/mysql%E7%B4%A2%E5%BC%95-e002f707a5f4
 ### 使⽤ Connection Pool 連結資料庫
 * Connection Pool
 ### 了解並預防 Cross-Site Scripting (XSS) 攻擊
