@@ -200,14 +200,14 @@
 * Primary key 和 Index
   * Primary key(pk, 主鍵)
     * 是一種index，必須為unique，且不能為空值(NULL)，PK 會自動建立index。
-    * 每個 table 只能有一個primary key。
+    * 每個table 只能有一個primary key。
   * Index
     * 資料索引，可加快搜尋速度。
     * 可以複合多個欄位建立索引，但因遵守最左前綴，使用時須評估欄位的優先順序去建立索引。
 * 新增index
   ```MySQL
   ALTER TABLE member ADD INDEX index_username(username);
-  ```
+  ```MySQL
 * 查詢效率
   可以在前面加上`EXPLAIN`分析查詢效率。
   ```
@@ -225,7 +225,7 @@
   * 建立索引後:<br/>
     ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_2-2.jpg)
 * LIKE模糊查詢
-  假設一個Table有多個欄位，其中username是index，其他非index，id為primary key。<br/>
+  假設一個Table有多個欄位，其中`username`是index，其他非index，`id`為primary key。<br/>
   執行以下指令:
   ```MySQL
   EXPLAIN SELECT * from member where username like "test"; # 1
@@ -234,13 +234,13 @@
   EXPLAIN SELECT * from member where username like "%test%"; # 4
   ```
   ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_5-1.jpg)
-  使用EXPLAIN會發現，其中1與2的type=range，key=index_name，代表使用index_name進行搜尋；<br/>
-  而3和4，type=ALL，代表搜尋對每一筆記錄進行完全scan，沒有用上index。<br/>
-  因为index_username的B+Tree是按照「index值」，也就是username character的順序進行排列的，例如:<br/>
+  使用EXPLAIN會發現，其中1與2的`type=range`，`key=index_name`，代表使用`index_name`進行搜尋；<br/>
+  而3和4，`type=ALL`，代表搜尋對每一筆記錄進行完整掃描，沒有用上index。<br/>
+  因為`index_username`的B+Tree是按照「index值」，也就是`username` character的順序進行排列的，例如:<br/>
   ![image](https://use-the-index-luke.com/static/fig02_05_like.en.WF4fN8id.png)
-  <br/>因此當"%test"或"%test%"便無法使用index_username的順序進行搜尋。
+  <br/>因此當`"%test"`或`"%test%"`便無法使用`index_username`的順序進行搜尋。
   
-  然而當搜尋的欄位只有username和id時:
+  然而當搜尋的欄位只有`username`和`id`時:
   ```MySQL
   EXPLAIN SELECT id, username from member where username like "test"; # 1
   EXPLAIN SELECT id, username from member where username like "test%"; # 2
@@ -248,8 +248,8 @@
   EXPLAIN SELECT id, username from member where username like "%test%"; # 4
   ```
   ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_5-2.jpg)
-  3和4就會使用index搜尋，且type=index。<br/>
-  這是因為想要查詢的資料都在index_username的B+Tree，而輔助索引的B+ Tree的leaf node包含index value和primary key value，所以查index_username的B+Tree就能查到全部结果了，這就是所謂的覆蓋索引(covering index)。
+  3和4就會使用index搜尋，且`type=index`。<br/>
+  這是因為想要查詢的資料都在`index_username`的B+Tree，而輔助索引的B+ Tree的leaf node包含index value和primary key value，所以查`index_username`的B+Tree就能查到全部结果了，這就是所謂的覆蓋索引(covering index)。
   * 叢集索引（Clustered Index）
     * 當資料表設定了「叢集索引」，則資料表「實體資料列」的順序會依據叢集索引的值做排序
     * 叢集索引上的葉子結點(leaf node)就是放所有的資料，又稱資料頁。
