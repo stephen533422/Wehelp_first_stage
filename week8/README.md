@@ -216,9 +216,14 @@
   其中type: 顯示的是查詢類型，是較為重要的一個指標值，依序從好到壞是：<br>
   system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL <br/>
   ![image](https://miro.medium.com/v2/resize:fit:1218/format:webp/1*q-qXGwM2fgusZPYL2Q7HDw.jpeg)
-  <br/>為甚麼index的設置能有效地改善查詢效率?<br/>
+* 為甚麼index的設置能有效地改善查詢效率?<br/>
   因為index使用B+Tree的資料結構建立，搜尋時可以使用Binary Search，理論上的T(n)=O(log(n))。
   ![image](https://ithelp.ithome.com.tw/upload/images/20200301/20124671D3sL4qgCgd.png)
+* 範例:
+  * 建立索引前:<br/>
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_2-1.jpg)
+  * 建立索引後:<br/>
+    ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_2-2.jpg)
 * LIKE模糊查詢
   假設一個Table有多個欄位，其中username是index，其他非index，id為primary key。<br/>
   執行以下指令:
