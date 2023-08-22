@@ -213,6 +213,9 @@
   ```
   EXPLAIN SELECT * FROM member WHERE username="test" and password="test";
   ```
+  其中type: 顯示的是查詢類型，是較為重要的一個指標值，依序從好到壞是：<br>
+  system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL <br/>
+  ![image](https://miro.medium.com/v2/resize:fit:1218/format:webp/1*q-qXGwM2fgusZPYL2Q7HDw.jpeg)
   為甚麼index的設置能有效地改善查詢效率?<br/>
   因為index使用B+Tree的資料結構建立，搜尋時可以使用Binary Search，理論上的T(n)=O(log(n))。
   ![image](https://ithelp.ithome.com.tw/upload/images/20200301/20124671D3sL4qgCgd.png)
