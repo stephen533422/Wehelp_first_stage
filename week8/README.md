@@ -81,11 +81,16 @@
 * SMACSS<br/>
   SMACSS(Scalable and Modular Architecture for CSS)指可擴展與模組化的設計模式。
   將結構分為五類:<br/>
-  * Base
-  * Layout
-  * Module
-  * State
-  * Theme
+  * Base: 所有網站的基礎架構，做全站設定為主，把最常用的東西全部先設定好。<br/>
+    例如`margin: 0;`、`padding: 0;`、CSS Reset。
+  * Layout: 主要用於共用的頁面，網站布局為主。抽象語義化命名，抽象出共用樣式，通常 Layout 會有一個前綴詞 l-。<br/>
+    例如:header、footer、nav。
+  * Module: 新增基底，再改換樣式(子模組)，很像前面OOCSS提到的「分離結構與樣式」。<br/>
+    例如: `<button type="button" class="btn btn-red">red</button>`。
+  * State: 用於新增狀態，通常與 Layout class 和 Module class 一起使用。<br/>
+    例如:錯誤時添加個`.is-error`，成功時添加個`.is-success`的 class。
+  * Theme: 主要用於設定網站主題的形式。<br/>
+    例如網頁的 dark mode。
 * BEM<br/>
   BEM 是一種 CSS class 命名的設計模式，其由 Yandex 公司提出，將介面切割成許多獨立的區塊，以區塊（Block）、元素（Element）和修飾子（Modifier）來命名。<br/>
   優點是以元件觀念進行開發，具有重用性。它擁有 OOCSS 的架構清楚的美好，也沒有 SMACSS 複雜或令人混淆的部份。<br/>
@@ -115,6 +120,7 @@
 * Reference
   * https://hackmd.io/@YIHQx96xTI-K9vDjhzEfDA/S1TBmnon9
   * https://www.cythilya.tw/2018/06/05/css-methodologies/
+  * https://ithelp.ithome.com.tw/articles/10236146
 ### 完善資料驗證程序
 * front-end
 * back-end
