@@ -140,9 +140,12 @@
   * https://hackmd.io/@YIHQx96xTI-K9vDjhzEfDA/S1TBmnon9
   * https://www.cythilya.tw/2018/06/05/css-methodologies/
   * https://ithelp.ithome.com.tw/articles/10236146
+---
 ### 完善資料驗證程序
 * front-end
 * back-end
+* Reference:
+---
 ### AJAX 與 CORS
 * CROS ( Cross-Origin Resource Sharing 跨來源資源共享 )
   * same-origin policy 同源政策
@@ -267,7 +270,152 @@
   * https://ithelp.ithome.com.tw/articles/10230211
   * https://miggo.pixnet.net/blog/post/30862194
   * https://medium.com/@michael80402/mysql%E7%B4%A2%E5%BC%95-e002f707a5f4
+---
 ### 使⽤ Connection Pool 連結資料庫
-* Connection Pool
+* Connection Pool<br/>
+  Connection Pool中文為連線池，是位於DB前面的緩衝區。<br/>
+  程式中我們常寫的connect()，包含了DB user帳密驗證，建立與資料庫的連線，接著我們會執行SQL，如execute()，最後會有close()來關閉連線。<br/>
+  然而，對資料庫來說，connection的建立跟關閉，是很消耗資源的，一個簡單的查詢，這個SQL執行可能只需要0.1秒，但卻花了2秒在做建立連線跟關閉，假如有大量的建立連線跟關閉同時出現，不只對資料庫有很大的衝擊，也會拖垮系統效能。<br/>
+  因此，就有connection pool的誕生了，可想像它是一個在資料庫前面的緩衝區或快取區，程式一執行就會建立好固定的連線數量，儲存在pool中，在程式需要連線的時候，getConnection()其實是到pool裡面去拿，不需要再花時間跟DB建立連線。<br/>
+  關閉連線的時候，close()其實是把連線放回pool，以便於後續能重複使用。<br/>
+  因此，connection pool的存在，可以降低對資料庫建立連線/關閉的次數，因為pool中的連線是可重複使用的，且每次的連線都是從pool中取得。<br/>
+  此外，市面上的框架通常會提供很多設定功能，可以管理pool中的連線，如初始、最大連線數量，對閒置連線的處置等等，適當調整參數也能增進效能。
+* 如何使⽤官⽅提供的 mysql-connector-python 套件，建立 Connection Pool。
+  * To create a connection pool *implicitly*
+    ```python
+    dbconfig = {
+      "database": "test",
+      "user":     "joe"
+    }
+    
+    cnx = mysql.connector.connect(pool_name = "mypool",
+                                  pool_size = 3,
+                                  **dbconfig)
+    ```
+    Subsequent calls to connect() that name the same connection pool return connections from the existing pool.
+  * To create a connection pool *explicitly*
+    ```python
+    dbconfig = {
+      "database": "test",
+      "user":     "joe"
+    }
+    
+    cnxpool = mysql.connector.pooling.MySQLConnectionPool(pool_name = "mypool",
+                                                          pool_size = 3,
+                                                          **dbconfig)
+    cnxpool.add_connection(cnx = None)
+    cnx1 = cnxpool.get_connection()
+    cnx2 = cnxpool.get_connection()
+    ```
+* 實作:
+  ```python
+  import mysql.connector
+  db_config={
+  'host':'localhost',
+  'database':'website',
+  'user':'root',
+  'password':'1234'
+  }
+  # 建立connection pool並取得一個連線
+  connection_1 = mysql.connector.connect(
+      pool_name="pool",
+      pool_size=3,
+      pool_reset_session=True,
+      **db_config
+  )
+  # 執行指令
+  def runSelect(connection_object):
+      if connection_object.is_connected():
+          cursor = connection_object.cursor()
+          select_stmt="SELECT * from member;"
+          cursor.execute(select_stmt)
+          users = cursor.fetchall()
+          for user in users:
+              print(user)
+          cursor.close()
+  # 歸還connection object
+  def endConnection(connection_object):
+      if connection_object.is_connected():
+          connection_object.close()
+  
+  # 取得第二個連線
+  connection_2 = mysql.connector.connect(pool_name = "pool")
+  # 取得第三個連線
+  connection_3 = mysql.connector.connect(pool_name = "pool")
+  # connection_4 = mysql.connector.connect(pool_name = "pool")
+  print("connection 1")
+  runSelect(connection_1)
+  print("connection 2")
+  runSelect(connection_2)
+  print("connection 3")
+  runSelect(connection_3)
+  endConnection(connection_1)
+  # print("connection 1")
+  # runSelect(connection_1)
+  # run已經歸還的connection object會錯誤
+  connection_4 = mysql.connector.connect(pool_name = "pool")
+  print("connection 4")
+  runSelect(connection_4)
+  ```
+  ```python
+  import mysql.connector
+  db_config={
+  'host':'localhost',
+  'database':'website',
+  'user':'root',
+  'password':'1234'
+  }
+  # 建立connection pool
+  connection_pool = mysql.connector.connect(
+      pool_name="pool",
+      pool_size=3,
+      pool_reset_session=True,
+      **db_config
+  )
+  # 取得connection object
+  def getConnection():
+    connection_object = connection_pool.get_connection()
+    return connection_object
+  # 執行指令
+  def runSelect(connection_object):
+      if connection_object.is_connected():
+          cursor = connection_object.cursor()
+          select_stmt="SELECT * from member;"
+          cursor.execute(select_stmt)
+          users = cursor.fetchall()
+          for user in users:
+              print(user)
+          cursor.close()
+  # 歸還connection object
+  def endConnection(connection_object):
+      if connection_object.is_connected():
+          connection_object.close()
+  connection_1=getConnection()
+  connection_2=getConnection()
+  connection_3=getConnection()
+  # connection_4=getConnection()
+  # [ mysql.connector.errors.PoolError: Failed getting connection; pool exhausted ] 超過最大連線數會錯誤
+  print("connection 1")
+  runSelect(connection_1)
+  print("connection 2")
+  runSelect(connection_2)
+  print("connection 3")
+  runSelect(connection_3)
+  endConnection(connection_1)
+  # print("connection 1")
+  # runSelect(connection_1)
+  # [ AttributeError: 'NoneType' object has no attribute 'is_connected' ] run已經歸還的connection object會錯誤
+  connection_4=getConnection()
+  print("connection 4")
+  runSelect(connection_4)
+  endConnection(connection_2)
+  endConnection(connection_3)
+  endConnection(connection_4)
+  ```
+* Reference:
+  * https://vocus.cc/article/5f800406fd89780001365d17
+  * http://peggg327.blogspot.com/2014/11/connection-pool.html
+  * https://pynative.com/python-database-connection-pooling-with-mysql/
+---
 ### 了解並預防 Cross-Site Scripting (XSS) 攻擊
 * XSS
