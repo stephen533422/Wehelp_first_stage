@@ -366,7 +366,7 @@
   'password':'1234'
   }
   # 建立connection pool
-  connection_pool = mysql.connector.connect(
+  connection_pool = mysql.connector.pooling.MySQLConnectionPool(
       pool_name="pool",
       pool_size=3,
       pool_reset_session=True,
