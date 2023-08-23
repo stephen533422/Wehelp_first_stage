@@ -418,4 +418,44 @@
   * https://pynative.com/python-database-connection-pooling-with-mysql/
 ---
 ### 了解並預防 Cross-Site Scripting (XSS) 攻擊
-* XSS
+* XSS<br/>
+  當網頁在進行browser render的時候，使用者輸入的欄位或是沒有被驗證的參數就被嵌入在網頁的程式碼裡面，如果這段輸入包含惡意的指令就會導致使用者瀏覽這個頁面的時候觸發這段惡意程式，導致 XSS 風險的發生。<br/>
+  這些惡意指令，通常是 JavaScript，但也可能是 Java、VBScript、ActiveX、Flash 或者甚至是普通的 HTML。<br/>
+  而Hacker可以通過這些指令以使用者的身分獲取資料，例如:Cookie、使用者個資，或是將使用者導向釣魚網站。
+  容易被攻擊的目標:電子郵件、討論區、搜尋引擎、留言板等等。
+  ![](https://images.ctfassets.net/4un77bcsnjzw/6RC4KPYnw28idAirFK6C0u/ceba2c77262b57498b2c9a8bd8729576/XSS_Attack.svg)
+  可分為三大種類:
+  * 反射型 XSS （Reflected）
+    * 又稱非持久型、參數型 XSS。
+    * 最常見的 XSS 攻擊類型，通常是將惡意程式會藏在網址列裡，放在 GET 參數傳遞，例如：
+      ```
+      http://www.example.com/upload.asp?id=<script>alert(1);</script>
+      ```
+    * 這種手法要能夠成功攻擊，需要使用社交工程釣魚的技巧，如：E-mail，使 User 點擊 URL 攻擊才會生效。
+    * 因為 URL 通常看起來很詭異，所以 Hacker 通常會使用短網址或 HTML Encoder 的方式嘗試欺騙 User。
+    * 常出現於網站的搜尋欄、使用登入介面用來竊取 Cookie 或是釣魚欺騙。
+  * DOM 型 XSS
+    * 這種手法和反射型 XSS一樣，都需要使用社交工程釣魚的技巧，使 User 點擊 URL 攻擊才會生效。
+    * Hacker 在 URL 輸入 DOM 註3 物件，把物件嵌入網頁程式碼，範例：
+      ```
+      <img src=# onerror=”alert(123)”>
+      ```
+  * 儲存型 XSS ( Stored )
+    * 又稱儲存型，可能會影響 Web 伺服器。
+    * 攻擊的方式是 Hacker 將惡意程式儲存在伺服器的資料庫中，只要使用者瀏覽到相關頁面就會執行惡意程式。
+    * 最常見的例子就是將 Javascript 注入留言板，只要使用者瀏覽網頁時，網頁會載入留言板的 Javascript 進而使 User 受到攻擊，範例如下：
+      ```
+      我是壞人！ <script>alert(1);</script>
+      ```
+    * 然後當 User 瀏覽網頁的時候，就會因為網頁先載入了當下頁面的惡意程式，於是 User 的頁面就會跳出一個 1 的 alert，以此類推， Hacker 在這裡如果輸入讓 User 傳送 cookie 或是其他惡意程式行為，網頁也會完全照做！
+* 實際設計⼀個 XSS 攻擊情境。
+* 如何預防?
+  * 驗證使用者的輸入<br/>
+    
+  * CSP<br/>
+    
+* Reference:
+  * https://hitcon.org/2015/CMT/download/day1-a-r4.pdf
+  * https://tech-blog.cymetrics.io/posts/jo/zerobased-cross-site-scripting/
+  * https://ithelp.ithome.com.tw/articles/10185408
+  * http://www.powenko.com/wordpress/xss%E6%94%BB%E6%93%8A/
