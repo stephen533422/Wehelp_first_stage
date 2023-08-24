@@ -159,6 +159,7 @@
   * https://pjchender.dev/webapis/webapis-form-validation/
   * http://www1.nttu.edu.tw/klou/course/921/js/09-regular.htm
   * https://www.html5pattern.com/
+  * https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#suffering-from-a-type-mismatch
 ---
 ### AJAX 與 CORS
 * CROS ( Cross-Origin Resource Sharing 跨來源資源共享 )
