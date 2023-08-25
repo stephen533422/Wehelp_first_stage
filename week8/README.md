@@ -154,12 +154,19 @@
     * `inputElement.validity.valid`:符合所有<input>的要求。
     * `inputElement.validity.valueMissing`: if`required` but no value, return true.
     * `inputElement.validity.patternMismatch`: if value doesn't satisfy the pattern attribute, return true.
-* back-end
+* back-end:
+  * 可以搭配`flask_wtf`
+    * 待補
+* 前端驗證和後端驗證的主要⽤途
+  * 前端驗證:有效減少Request的數量、節省伺服器資源、提升使用者體驗
+  * 後端驗證:避免JS遭改寫、甚至遭爬蟲攻擊後端
 * Reference:
   * https://pjchender.dev/webapis/webapis-form-validation/
   * http://www1.nttu.edu.tw/klou/course/921/js/09-regular.htm
   * https://www.html5pattern.com/
   * https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#suffering-from-a-type-mismatch
+  * https://ithelp.ithome.com.tw/articles/10228074
+  * https://ithelp.ithome.com.tw/articles/10206683
 ---
 ### AJAX 與 CORS
 * CROS ( Cross-Origin Resource Sharing 跨來源資源共享 )
@@ -178,7 +185,7 @@
     同源政策幫助隔離那些潛在的惡意文件，避免可能的惡意攻擊。例如，可以避免惡意網站在瀏覽器取得第三方網路郵件伺服器的資料(使用者已經登入的)，或公司內部網路(攻擊者沒有公開IP地址而無法直接存取)而中繼資料給攻擊者。
   * same-origin 相同來源<br/>
       ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task3_1.jpg)
-      ( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
+      <br/>( image credict: https://www.appsecmonkey.com/blog/same-origin-policy )<br/>
     MDN example:
 
     |URL 	|Outcome 	|Reason|
@@ -225,10 +232,10 @@
 * 新增index
   ```MySQL
   ALTER TABLE member ADD INDEX index_username(username);
-  ```MySQL
+  ```
 * 查詢效率
   可以在前面加上`EXPLAIN`分析查詢效率。
-  ```
+  ```MySQL
   EXPLAIN SELECT * FROM member WHERE username="test" and password="test";
   ```
   其中type: 顯示的是查詢類型，是較為重要的一個指標值，依序從好到壞是：<br>
@@ -267,7 +274,8 @@
   ```
   ![image](https://github.com/stephen533422/wehelp_first_stage/blob/main/week8/week8_task4_5-2.jpg)
   3和4就會使用index搜尋，且`type=index`。<br/>
-  這是因為想要查詢的資料都在`index_username`的B+Tree，而輔助索引的B+ Tree的leaf node包含index value和primary key value，所以查`index_username`的B+Tree就能查到全部结果了，這就是所謂的覆蓋索引(covering index)。
+  這是因為想要查詢的資料都在`index_username`的B+Tree，而輔助索引的B+ Tree的leaf node包含index value和primary key value，所以查`index_username`的B+Tree就能查到全部结果了，這就是所謂的覆蓋索引(covering index)。<br/>
+  **所以某種語法會不會用到index去搜尋，並不是絕對的。**
   * 叢集索引（Clustered Index）
     * 當資料表設定了「叢集索引」，則資料表「實體資料列」的順序會依據叢集索引的值做排序
     * 叢集索引上的葉子結點(leaf node)就是放所有的資料，又稱資料頁。
@@ -290,13 +298,13 @@
 * Connection Pool<br/>
   Connection Pool中文為連線池，是位於DB前面的緩衝區。<br/>
   程式中我們常寫的connect()，包含了DB user帳密驗證，建立與資料庫的連線，接著我們會執行SQL，如execute()，最後會有close()來關閉連線。<br/>
-  然而，對資料庫來說，connection的建立跟關閉，是很消耗資源的，一個簡單的查詢，這個SQL執行可能只需要0.1秒，但卻花了2秒在做建立連線跟關閉，假如有大量的建立連線跟關閉同時出現，不只對資料庫有很大的衝擊，也會拖垮系統效能。<br/>
-  因此，就有connection pool的誕生了，可想像它是一個在資料庫前面的緩衝區或快取區，程式一執行就會建立好固定的連線數量，儲存在pool中，在程式需要連線的時候，getConnection()其實是到pool裡面去拿，不需要再花時間跟DB建立連線。<br/>
+  對資料庫來說，connection的建立跟關閉，是很消耗資源的，一個簡單的查詢，這個SQL執行可能只需要0.1秒，但卻花了2秒在做建立連線跟關閉，假如有大量的建立連線跟關閉同時出現，不只對資料庫有很大的衝擊，也會拖垮系統效能。<br/>
+  因此就有connection pool的誕生了，可想像它是一個在資料庫前面的緩衝區或快取區，程式一執行就會建立好固定的連線數量，儲存在pool中，在程式需要連線的時候，getConnection()其實是到pool裡面去拿，不需要再花時間跟DB建立連線。<br/>
   關閉連線的時候，close()其實是把連線放回pool，以便於後續能重複使用。<br/>
-  因此，connection pool的存在，可以降低對資料庫建立連線/關閉的次數，因為pool中的連線是可重複使用的，且每次的連線都是從pool中取得。<br/>
+  connection pool的存在，可以降低對資料庫建立連線/關閉的次數，因為pool中的連線是可重複使用的，且每次的連線都是從pool中取得。<br/>
   此外，市面上的框架通常會提供很多設定功能，可以管理pool中的連線，如初始、最大連線數量，對閒置連線的處置等等，適當調整參數也能增進效能。
 * 如何使⽤官⽅提供的 mysql-connector-python 套件，建立 Connection Pool。
-  * To create a connection pool *implicitly*
+  * To create a connection pool **implicitly**
     ```python
     dbconfig = {
       "database": "test",
@@ -308,7 +316,7 @@
                                   **dbconfig)
     ```
     Subsequent calls to connect() that name the same connection pool return connections from the existing pool.
-  * To create a connection pool *explicitly*
+  * To create a connection pool **explicitly**
     ```python
     dbconfig = {
       "database": "test",
@@ -437,9 +445,9 @@
   當網頁在進行browser render的時候，使用者輸入的欄位或是沒有被驗證的參數就被嵌入在網頁的程式碼裡面，如果這段輸入包含惡意的指令就會導致使用者瀏覽這個頁面的時候觸發這段惡意程式，導致 XSS 風險的發生。<br/>
   這些惡意指令，通常是 JavaScript，但也可能是 Java、VBScript、ActiveX、Flash 或者甚至是普通的 HTML。<br/>
   而Hacker可以通過這些指令以使用者的身分獲取資料，例如:Cookie、使用者個資，或是將使用者導向釣魚網站。
-  容易被攻擊的目標:電子郵件、討論區、搜尋引擎、留言板等等。
+  容易被攻擊的目標:電子郵件、討論區、搜尋引擎、留言板等等。<br/>
   ![](https://images.ctfassets.net/4un77bcsnjzw/6RC4KPYnw28idAirFK6C0u/ceba2c77262b57498b2c9a8bd8729576/XSS_Attack.svg)
-  可分為三大種類:
+  <br/>可分為三大種類:
   * 反射型 XSS （Reflected）
     * 又稱非持久型、參數型 XSS。
     * 最常見的 XSS 攻擊類型，通常是將惡意程式會藏在網址列裡，放在 GET 參數傳遞，例如：
@@ -464,7 +472,7 @@
       ```
     * 然後當 User 瀏覽網頁的時候，就會因為網頁先載入了當下頁面的惡意程式，於是 User 的頁面就會跳出一個 1 的 alert，以此類推， Hacker 在這裡如果輸入讓 User 傳送 cookie 或是其他惡意程式行為，網頁也會完全照做！
 * 實際設計⼀個 XSS 攻擊情境。
-  * 儲存型XSS，例如，在留言板中留下以下內容，利用image，把瀏覽頁面的使用者的cookie，導向自己的server或線上工具，(參考本篇:https://ithelp.ithome.com.tw/articles/10238479)
+  * 儲存型XSS，例如，在留言板中留下以下內容，利用image，把瀏覽頁面的使用者的cookie，導向自己的server或線上工具(參考本篇:https://ithelp.ithome.com.tw/articles/10238479)
   ```html
   <script>
   var i=new Image;
